@@ -1,0 +1,62 @@
+<head th:fragment="head_fragment">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title th:text="${pageTitle + ' | Dodobook'}">Default Title | Dodobook</title>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAsqTa-gxGT48gBctSfMeBcik6cMuAQZxw",
+            authDomain: "taskms-39342.firebaseapp.com",
+            projectId: "taskms-39342",
+            storageBucket: "taskms-39342.appspot.com",
+            messagingSenderId: "535235202350",
+            appId: "1:535235202350:web:b427b513489634dce0bebf"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                user.getIdToken().then(function (data) {
+                    document.cookie = "access_token=" + data;
+                    //localStorage.setItem("X-Token", data);
+                });
+            } else {
+                document.cookie = "access_token=";
+                //localStorage.removeItem("X-Token");
+            }
+        });
+    </script>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/prettyPhoto.css}" rel="stylesheet">
+    <link th:href="@{/css/price-range.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/responsive.css}" rel="stylesheet">
+
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.scrollUp.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+    <script type="text/javascript" th:src="@{/js/client.js}"></script>
+    <script type="text/javascript"
+            th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/price-range.js}"></script>
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+</head><!--/head-->

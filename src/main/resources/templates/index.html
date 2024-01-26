@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <script type="text/javascript" th:src="@{/js/user/firstPage.js}"></script>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<section id="slider">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider-carousel" data-slide-to="1"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-sm-6" style="position: relative;">
+                                <img th:src="@{/images/home/girlStars.jpg}" class="girl img-responsive" alt="" />
+                            </div>
+                            <div class="col-sm-6" id="text-col-sm">
+                                <h1><span>Dodo</span>Book</h1>
+                                <p>Вот уже пять лет мы приносим радость миллионам читателей. Отправляйтесь в удивительное путешествие вместе с нами!  </p>
+                                <a href="/catalog"><button type="button" class="btn btn-default get">Начать</button></a>
+                            </div>
+                        </div>
+                        <div class="item ">
+                            <div class="col-sm-6" style="position: relative;">
+                                <img th:src="@{/images/home/girlStars.jpg}" class="girl img-responsive" alt="" />
+                            </div>
+                            <div class="col-sm-6" id="text-col-sm">
+                                <h1><span>Dodo</span>Book</h1>
+                                <h2>Мы здесь, чтобы вдохновлять вас.</h2>
+                                <a href="/catalog"><button type="button" class="btn btn-default get">Начать</button></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br><br><br>
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="recommended_items">
+                <h2 class="title text-center">НАШИ КНИГИ</h2> <!--ЕЩЕ ЭЛЕКТРОННЫЕ КНИГИ И МБ КАКАЯ-НИБУДЬ ТРЕТЬЯ КАТЕГОРИЯ(В ПОСЛЕДНЮЮ ОЧЕРЕДЬ)-->
+                <div id="recommended-item-carousel2" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div id="books" class="item active">
+
+                        </div>
+
+                        <div id="books2" class="item">
+
+                        </div>
+                    </div>
+
+                    <a class="left recommended-item-control" href="#recommended-item-carousel2" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="right recommended-item-control" href="#recommended-item-carousel2" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

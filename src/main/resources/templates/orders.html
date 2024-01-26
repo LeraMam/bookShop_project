@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <script>
+        /*
+            const createCartItem = (filledOrderBook) => {
+                console.log(filledOrderBook.id)
+                const tr = $('<tr></tr>')
+                const td1 = $('<td class="cart_product"> <a><img src="' + filledOrderBook.image + '" alt="" height=50px></a></td>')
+                const td2 = $('<td class="cart_description"><h4><a href="">' + filledOrderBook.name + '</a></h4></td>')
+                const td3 = $('<td class="cart_price"><p>' + filledOrderBook.price + '</p></td>')
+                const td4 = $('<td class="cart_quantity"></td>')
+
+                const td4_div = $('<div class="cart_quantity_button"></div>')
+                const td4_div_a1 = $('<a class="cart_quantity_up"> + </a>')
+                td4_div_a1.click(() => ajaxPOSTWithoutResponse('/api/order', {
+                    bookId: filledOrderBook.id,
+                    action: 'ADD_BOOK'
+                }, () => {
+                    reloadCart()
+                }))
+                const td4_div_input = $('<input class="cart_quantity_input" type="text" name="quantity" value="' + filledOrderBook.bookCount + '" autocomplete="off" size="2" disabled>')
+                const td4_div_a2 = $('<a class="cart_quantity_down"> - </a>')
+                td4_div_a2.click(() => ajaxPOSTWithoutResponse('/api/order', {
+                    bookId: filledOrderBook.id,
+                    action: 'SUBTRACT_BOOK'
+                }, () => {
+                    reloadCart()
+                }))
+                td4_div.append(td4_div_a1, td4_div_input, td4_div_a2)
+                td4.append(td4_div)
+
+                const td5 = $('<td class="cart_total"><p class="cart_total_price">' + (filledOrderBook.bookCount * filledOrderBook.price).toFixed(2) + '</p></td>')
+                const td6 = $('<td class="cart_delete"><a class="cart_quantity_delete"><i class="fa fa-times"></i></a></td>')
+                td6.click(() => ajaxPOSTWithoutResponse('/api/order', {
+                    bookId: filledOrderBook.id,
+                    action: 'DELETE_BOOK'
+                }, () => {
+                    reloadCart()
+                }))
+
+                tr.append(td1, td2, td3, td4, td5, td6)
+
+                return tr;
+            }
+
+            const reloadCart = () => {
+                ajaxGET('/api/order/cart', (filledOrderBooks => {
+                    const cartTableBody = $('#cartTableBody');
+                    cartTableBody.empty();
+                    filledOrderBooks.forEach(filledOrderBook => cartTableBody.append(createCartItem(filledOrderBook)))
+
+                    const trTotal = $('<tr> <td colspan="4">&nbsp;</td> <td colspan="2"><table class="table table-condensed total-result"> <tr> <td>Total</td> <td><span>' +
+                        filledOrderBooks.reduce((acc, obj) => acc + (obj.bookCount * obj.price), 0)
+                        + ' P</span></td> </tr></table></td></tr>')
+                    cartTableBody.append(trTotal)
+
+                    $('#do_action').attr("hidden", filledOrderBooks.length === 0);
+                }))
+            }
+
+            $(document).ready(() => {
+                reloadCart();
+
+                $('#addressForm').submit(event => {
+                    event.preventDefault();
+                    const body = {};
+                    console.log($('#addressForm').serializeArray())
+                    $.each($('#addressForm').serializeArray(), (i, field) => {
+                        body[field.name] = field.value;
+                    })
+
+                    ajaxPOSTWithoutResponse('/api/order/submit', body, () => {
+                        //window.location.href = '/catalog'
+                    })
+                });
+            });*/
+        const createBookItemStr = (book) => {
+            return `
+                <tr>
+                    <td class="cart_product"><a><img
+                                    src="${book.image}"
+                                    alt="" height="50px"></a></td>
+                    <td class="cart_description"><h4><a>${book.name}</a></h4></td>
+                    <td class="cart_price"><p>${book.price}</p></td>
+                    <td class="cart_quantity">
+                        <div class="cart_quantity_button">
+                            <input class="cart_quantity_input"  type="text" name="quantity" value="${book.bookCount}" autocomplete="off" size="2" disabled>
+                        </div>
+                    </td>
+                    <td class="cart_total"><p class="cart_total_price">${book.price * book.bookCount}</p></td>
+                </tr>
+        `
+        }
+
+
+        const createBookItemsSectionStr = (books) => {
+            return `
+            <section id="cart_items">
+                <div class="container">
+                    <div class="table-responsive cart_info" style="border: 0">
+                        <table class="table table-condensed" style="width: 95%; margin-left: -15px;">
+                            <thead>
+                            <tr class="cart_menu">
+                                <td class="image">Книга</td>
+                                <td class="description"></td>
+                                <td class="price">Цена</td>
+                                <td class="quantity">Количество</td>
+                                <td class="total">Стоимость</td>
+                            </tr>
+                            </thead>
+                            <tbody id="cartTableBody">
+                                ${books.map(createBookItemStr).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        `
+        }
+
+
+        const createAddressSectionStr = (delivery) => {
+            return `
+            <section id="do_action">
+                    <div class="container" >
+                        <div class="row" >
+                            <div class="col-sm-6" >
+                                <ul class="user_info" style="background: white">
+                                    <li class="single_field zip-field">
+                                        <label>Номер телефона:</label>
+                                        <input name="tel" type="tel" pattern="\+375[0-9]{2}[0-9]{7}"
+                                               placeholder="+375xxxxxxxxx"
+                                               value="${delivery.tel}" disabled>
+                                    </li>
+                                </ul>
+                                <ul class="user_info" style="background: white">
+                                    <li class="single_field zip-field">
+                                        <label>Область:</label>
+                                        <input name="region" type="text" value="${delivery.region}" disabled>
+                                    </li>
+                                    <li class="single_field zip-field">
+                                        <label>Город:</label>
+                                        <input name="city" type="text" value="${delivery.city}" disabled>
+                                    </li>
+                                    <li class="single_field zip-field">
+                                        <label>Индекс:</label>
+                                        <input name="zip" type="number" value="${delivery.zip}" disabled>
+                                    </li>
+                                </ul>
+                                <ul class="user_info" style="background: white">
+                                    <li class="single_field zip-field">
+                                        <label>Улица:</label>
+                                        <input name="street" type="text" value="${delivery.street}" disabled>
+                                    </li>
+                                    <li class="single_field zip-field">
+                                        <label>Дом:</label>
+                                        <input name="house" type="text" value="${delivery.house}" disabled>
+                                    </li>
+                                    <li class="single_field zip-field">
+                                        <label>Квартира:</label>
+                                        <input name="flat" type="text" value="${delivery.flat}" disabled>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        `
+        }
+
+        const orderState = new URLSearchParams(window.location.search).get('state')
+
+        const changeOrderState = (orderId, toState) => {
+            console.log(orderId)
+            ajaxPUTWithoutResponse('/api/bucket/' + orderId, {state: toState}, reloadOrders)
+        }
+
+        const reloadOrders = () => ajaxGET('/api/bucket/admin?state=' + orderState, (usersOrdersData => {
+            $('#orderList').empty()
+            $('#orderList').append('<h2 id="ordersListTitle"></h2>')
+            usersOrdersData.forEach(order => {
+                //userOrdersData.orders.forEach(order => {
+                    const orderDiv = $(`
+                        <div class="category-tab shop-details-tab" style="border: 1px solid #a2a2a2; padding: 10px"><!--category-tab-->
+                            <div class="col-sm-12">
+                                <h4 id="orderId">Номер заказа: ${order.orderId}</h4>
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#${order.orderId}_books" data-toggle="tab">Книги</a></li>
+                                    <li><a href="#${order.orderId}_address" data-toggle="tab">Адрес</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="${order.orderId}_books">
+                                    ${createBookItemsSectionStr(order.books)}
+                                </div>
+
+                                <div class="tab-pane fade" id="${order.orderId}_address">
+                                    <div class="col-sm-12">
+                                    ${createAddressSectionStr(order.delivery)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/category-tab-->`)
+
+                    const submitBtn = $('<button id="orderSubmitBtn" class="btn btn-default update"></button> <br><br>');
+                    submitBtn.text(orderState === 'SUBMITTED' ? 'Начать обработку' :
+                        orderState === 'IN_PROCESSING' ? 'Заказ обработан' : '')
+
+                    const nextState = orderState === 'SUBMITTED' ? 'IN_PROCESSING' :
+                        orderState === 'IN_PROCESSING' ? 'RESOLVED' : undefined;
+                    submitBtn.click(() => changeOrderState(order.orderId, nextState))
+
+                    orderDiv.append(submitBtn)
+
+                    $('#orderList').append(orderDiv)
+                //   })
+            })
+
+            $('#ordersListTitle').text(orderState === 'SUBMITTED' ? 'Открытые заказы' :
+                orderState === 'IN_PROCESSING' ? 'Заказы в обработке' : '')
+        }))
+
+        $(document).ready(reloadOrders)
+    </script>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div class="container" id="orderList">
+
+</div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

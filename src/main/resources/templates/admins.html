@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <script src="js/admin/admins.js"></script>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Администраторы
+                        <i id="createUserBtn" class="fa fa-plus-circle" style="color: green"></i>
+                    </h2>
+                    <div id="users">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Book Modal -->
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Добавить администратора</h5>
+            </div>
+
+            <form id="AdminForm">
+                <div class="modal-body">
+
+                    <label>Логин</label>
+                    <input class="form-control" id="UserLogin" type="text" placeholder="Имя пользователя"
+                           required value="user"/><br>
+
+                    <label>Пароль</label>
+                    <input class="form-control" id="UserPassword" type="password" placeholder="Пароль"
+                           required value=""/><br>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="bookSubmit" type="submit" class="btn success">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

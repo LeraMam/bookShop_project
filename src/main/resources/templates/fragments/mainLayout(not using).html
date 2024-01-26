@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head_fragment">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Имя страницы | DodoBook</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/prettyPhoto.css}" rel="stylesheet">
+    <link th:href="@{/css/price-range.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/responsive.css}" rel="stylesheet">
+
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.scrollUp.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+    <script type="text/javascript" th:src="@{/js/client.js}"></script>
+    <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/price-range.js}"></script>
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+</head><!--/head-->
+<body>
+<header id="header"><!--header-->
+    <div class="header_top">
+        <!-- &lt;!&ndash;header_top&ndash;&gt; -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="contactinfo">
+                        <ul class="nav nav-pills">
+                            <li><a href="https://www.google.com/intl/ru/gmail/about/" target="_blank"><i
+                                            class="fa fa-envelope"></i> dodoshop@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="social-icons pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="https://www.instagram.com" target="_blank"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.vk.com" target="_blank"><i class="fa fa-vk"></i></a></li>
+                            <li><a href="https://www.pinterest.com" target="_blank"><i class="fa fa-pinterest"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- &lt;!&ndash;/header_top&ndash;&gt; -->
+
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <a href="/static"><img src="images/home/DodoBook2.png" height="50px" alt=""/></a>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/account"><i class="fa fa-user"></i> Аккаунт</a></li>
+                            <li><a href="/cart"><i class="fa fa-shopping-cart"></i>Корзина</a></li>
+                           <!-- <% if(typeof uRole !== 'undefined' && uRole=== 'USER') { %>
+                                <li><a href="/account"><i class="fa fa-user"></i> Аккаунт</a></li>
+                            <% } %>-->
+                           <!-- <% if(typeof uRole !== 'undefined' && uRole=== 'USER') { %>
+                                <li><a href="/cart"><i class="fa fa-shopping-cart"></i>Корзина</a></li>
+                            <% } %>-->
+                            <li><a href="/login"><i class="fa fa-lock"></i> Вход</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+    <div class="header-bottom"><!--header-bottom-->
+        <div class="container">
+            <div class="row" id="headerBottomRow">
+                <div class="col-sm-9">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="mainmenu pull-left">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                            <li><a href="/catalog">Каталог</a></li>
+                           <!-- <% if(typeof uRole !== 'undefined' && uRole === 'ADMIN') { %>
+                                <li><a href="/catalog">Каталог</a></li>
+                            <% } %>-->
+                            <!--<% if(typeof uRole !== 'undefined' && uRole === 'ADMIN') { %>
+                                <li class="dropdown"><a>Заказы<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/orders?state=SUBMITTED">Открытые заказы</a></li>
+                                        <li><a href="/orders?state=IN_PROCESSING">Заказы в обработке</a></li>
+                                    </ul>
+                                </li>
+                            <% } %>-->
+                            <li><a href="/static">Главная</a></li>
+                            <li class="dropdown"><a href="#">Магазин<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="/catalog">Каталог</a></li>
+                                    <li><a href="/contact">Контакты</a></li>
+                                </ul>
+                            </li>
+                            <!--<% if(typeof uRole !== 'undefined' && uRole === 'USER') { %>
+                                <li><a href="/static">Главная</a></li>
+                                <li class="dropdown"><a href="#">Магазин<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/catalog">Каталог</a></li>
+                                            <li><a href="/contact">Контакты</a></li>
+                                    </ul>
+                                </li>
+                            <% } %>-->
+                            <li class="dropdown"><a href="#">Пользователи<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="/users">Клиенты</a></li>
+                                    <li><a href="/admins">Администраторы</a></li>
+                                </ul>
+                            </li>
+                            <!--<% if(typeof uRole !== 'undefined' && uRole === 'ADMIN') { %>
+                                <li class="dropdown"><a href="#">Пользователи<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/users">Клиенты</a></li>
+                                        <li><a href="/admins">Администраторы</a></li>
+                                    </ul>
+                                </li>
+                            <% } %>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-bottom-->
+</header><!--/header-->
+
+<!--<main>
+    &lt;!&ndash; Фрагменты контента будут включены здесь &ndash;&gt;
+    <div th:replace="index"></div>
+</main>-->
+
+<div id="snackbar">Some text some message..</div>
+
+<footer id="footer"><!--Footer-->
+    <div class="footer-widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Сервис</h2>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="/contact">Контакты</a></li>
+                            <li><a href="/delivery">Доставка</a></li>
+                            <li><a href="/pay">Оплата</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Статьи</h2>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="/ofetra">Пользовательское соглашение</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="single-widget">
+                        <h2>Мы в соцсетях</h2>
+                        <div id="socialN">
+                            <a href="https://www.instagram.com" target="_blank"><i
+                                        class="fa fa-instagram fa-2x"></i></a></li>
+                            <a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
+                            <a href="https://twitter.com" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                            <a href="https://www.vk.com" target="_blank"><i class="fa fa-vk fa-2x"></i></a>
+                            <a href="https://www.pinterest.com" target="_blank"><i
+                                        class="fa fa-pinterest fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="companyinfo">
+                        <h2><span>dodoshop</span>@gmail.com</h2>
+                        <p>"Мы здесь, чтобы вдохновлять вас."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <!-- <p class="pull-left">©Все права защищены.</p> -->
+                <p class="pull-right">DodoBook, разработано студенкой гр.173601 Мамайко В.Ю.</p>
+            </div>
+        </div>
+    </div>
+
+</footer><!--/Footer-->
+
+   <!-- <script src="../index.js" type="text/javascript"></script>
+    <script src="../routes/index.js" type="text/javascript"></script>
+    <script src="../routes/userRouter.js" type="text/javascript"></script>
+    <script src="../controllers/userController.js" type="text/javascript"></script> -->
+</body>
+</html>

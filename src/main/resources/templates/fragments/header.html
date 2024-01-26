@@ -1,0 +1,112 @@
+<div th:fragment="header" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <header id="header"><!--header-->
+        <div class="header_top">
+            <!-- &lt;!&ndash;header_top&ndash;&gt; -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="contactinfo">
+                            <ul class="nav nav-pills">
+                                <li><a href="https://www.google.com/intl/ru/gmail/about/" target="_blank"><i
+                                        class="fa fa-envelope"></i> dodoshop@gmail.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="social-icons pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="https://www.instagram.com" target="_blank"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li><a href="https://www.facebook.com" target="_blank"><i
+                                        class="fa fa-facebook"></i></a>
+                                </li>
+                                <li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.vk.com" target="_blank"><i class="fa fa-vk"></i></a></li>
+                                <li><a href="https://www.pinterest.com" target="_blank"><i class="fa fa-pinterest"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- &lt;!&ndash;/header_top&ndash;&gt; -->
+
+        <div class="header-middle"><!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="/static"><img src="images/home/DodoBook2.png" height="50px" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav">
+                                <li sec:authorize="hasRole('ROLE_USER')">
+                                    <a href="/account"><i class="fa fa-user"></i> Аккаунт</a>
+                                </li>
+                                <li sec:authorize="hasRole('ROLE_USER')">
+                                    <a href="/cart"><i class="fa fa-shopping-cart"></i>Корзина</a>
+                                </li>
+                                <li sec:authorize="isAnonymous()">
+                                    <a href="/login"><i class="fa fa-lock"></i> Вход</a>
+                                </li>
+                                <li sec:authorize="isAuthenticated()">
+                                    <a onclick="firebase.auth().signOut().then(() => {
+                                              document.cookie = 'access_token=';
+                                        })" href="/login"><i class="fa fa-sign-out"></i> Выход</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+
+        <div class="header-bottom"><!--header-bottom-->
+            <div class="container">
+                <div class="row" id="headerBottomRow">
+                    <div class="col-sm-9">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/catalog">Каталог</a></li>
+                                <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a>Заказы<i
+                                        class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/orders?state=SUBMITTED">Открытые заказы</a></li>
+                                        <li><a href="/orders?state=IN_PROCESSING">Заказы в обработке</a></li>
+                                    </ul>
+                                </li>
+                                <li sec:authorize="!hasRole('ROLE_ADMIN')"><a href="/">Главная</a></li>
+                                <li class="dropdown" sec:authorize="!hasRole('ROLE_ADMIN')"><a href="#">Магазин<i
+                                        class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/catalog">Каталог</a></li>
+                                        <li><a href="/contact">Контакты</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Пользователи<i
+                                        class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/users">Клиенты</a></li>
+                                        <li><a href="/admins">Администраторы</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-bottom-->
+    </header><!--/header-->
+</div>

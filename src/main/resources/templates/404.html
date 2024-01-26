@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div style="text-align: center">
+    <img th:src="@{/images/404/404.png}">
+</div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

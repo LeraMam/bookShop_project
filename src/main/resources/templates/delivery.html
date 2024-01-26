@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div id="contact-page" class="container">
+    <div class="bg">
+        <div class="row">
+            <div class="col-sm-8">
+                <div style="text-align: center">
+                    <img th:src="@{/images/home/forest.png}" width="700px">
+                </div>
+                <br>
+            </div>
+
+            <div class="col-sm-4 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Общая информация</h2>
+                    <p>
+                        Окончательная стоимость заказа включает в себя стоимость товаров
+                        и стоимость доставки, в зависимости от вида доставки, выбранного в корзине.
+                        Оплата стоимости товаров и стоимости доставки производится едиными формой и
+                        способами оплаты, выбранными при оформлении заказа в корзине.
+                        <br>
+                    </p>
+                    <p style="color:#A5678E">Почтой Беларуси(3-5 дней)<br></p>
+                    <p>
+                        Заказ высылается почтой по территории Беларуси на Ваш адрес после того,
+                        как мы получим подтверждение его оплаты. В населенных пунктах, где нет
+                        доставки курьером и пунктов самовывоза, возможен наложенный платеж
+                        (оплата по факту получения товара). Стоимость согласно тарифов РУП
+                        БелПочта для юридических лиц.
+                    </p>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

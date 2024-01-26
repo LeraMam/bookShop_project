@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--<script>
+        $(document).ready(function () {
+            $("#login_form").submit(function (event) {
+                const formData = {
+                    login: $("#login_login").val(),
+                    password: $("#login_password").val(),
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/api/user/login",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    encode: true,
+                    success: (data) => {
+                        showMessage('Вы в системе', 1000, () => window.location.href = '/catalog')
+                    },
+                    
+                    error: defaultErrorHandler
+                })
+                event.preventDefault();
+            });
+
+            $("#registration_form").submit(function (event) {
+                const formData = {
+                    login: $("#registration_login").val(),
+                    password: $("#registration_password").val(),
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/user/registration",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    encode: true,
+                    success: (data) => {
+                        showMessage('Вы в системе', 1000, () => window.location.href = '/catalog')
+                    },
+                    error: defaultErrorHandler
+                })
+
+                event.preventDefault();
+            });
+        });
+    </script>-->
+    <link th:href="@{/css/index.css}" rel="stylesheet">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+
+<section id="form"><!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="firebaseui-auth-container">
+                    <!-- This is where the Login ui will load -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Firebase UI -->
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link
+        type="text/css"
+        rel="stylesheet"
+        href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
+/>
+<script type="text/javascript" th:src="@{/js/auth.js}"></script>
+
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

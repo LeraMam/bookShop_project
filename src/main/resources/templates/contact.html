@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div id="contact-page" class="container">
+    <div class="bg">
+        <div class="row">
+            <div class="col-sm-8">
+                <div style="text-align: center">
+                    <img th:src="@{/images/home/forest.png}" width="700px">
+                </div>
+                <br>
+            </div>
+            <div class="col-sm-4">
+                <div class="contact-info">
+                    <h2 class="title text-center">Контактные данные</h2>
+                    <address>
+                        <p>DodoBook</p>
+                        <p>Номера телефона:</p>
+                        <p>+375 29 465-28-92</p>
+                        <p>+375 33 239-10-45</p>
+                        <p>Электронная почта: dodoshop@gmail.com</p>
+                    </address>
+                    <div class="social-networks">
+                        <h2 class="title text-center">Мы в соцсетях</h2>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-vk"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

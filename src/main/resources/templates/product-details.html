@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <script>
+        $(document).ready(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            ajaxGET('/api/book/' + urlParams.get('book'), book=> {
+                console.log(book);
+                // console.log(book.id);
+                $('#image').attr('src', book.image)
+                $('#name').text(book.name)
+                $('#authors').append('<b>Автор: </b>', book.authors.map(a=>a.name).join(', '))
+                $('#categories').append('<b>Категории: </b>', book.categories.map(a=>a.name).join(', '))
+                $('#year').append('<b>Год: </b>', book.publishYear)
+                $('#publisher').append('<b>Издательство: </b>', book.publisher.name)
+                $('#price').append(book.price+' Р')
+
+                $('#AddToCart').click(() => {
+                    console.log('ID:', book.id);
+                    ajaxPOSTWithoutResponse('/api/order', {bookId: book.id, action: 'CREATE_BOOK'},
+                        () => showMessage("Книга добавлена в корзину", 1000))
+                })
+            })
+            console.log()
+        })
+    </script>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-9 padding-right">
+                <div class="product-details">
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img id="image" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information">
+                            <h2 id="name"></h2>
+                            <span>
+								<span id="price"></span>
+                                    <button th:if="${uRole != null && uRole == 'USER'}" id="AddToCart" type="button" class="btn btn-default cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        В корзину
+                                    </button>
+							</span>
+                            <p id="authors"></p>
+                            <p id="categories"></p>
+                            <p id="year"></p><br>
+                            <p><b>Наличие:</b> На складе</p>
+                            <p id="publisher"></p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

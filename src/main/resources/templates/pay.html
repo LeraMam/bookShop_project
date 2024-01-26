@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+<div id="contact-page" class="container">
+    <div class="bg">
+        <div class="row">
+            <div class="col-sm-8" style="margin-top: 40px;">
+                <div style="text-align: center">
+                    <img th:src="@{/images/home/forest.png}" width="700px">
+                </div>
+                <br>
+            </div>
+
+            <div class="col-sm-4 padding-right">
+                <div class="features_items">
+                    <h2 class="title text-center">Способы оплаты</h2>
+                    <p style="color:#A5678E">Предоплата банковской картой<br></p>
+                    <p>
+                        Предоплата производится через интернет в режиме реального времени непосредственно после оформления заказа.
+                        Минимальная сумма платежа составляет 0,10 рублей. Максимальная — 1000 рублей.
+                        К оплате принимаются карты Visa/MasterCard всех типов.
+                        <br>
+                    </p>
+                    <p style="color:#A5678E">Наложенный платеж (+5% от суммы заказа)<br></p>
+                    <p>
+                        Наложенный платеж — это возможность оплаты заказа в отделении почтовой связи в
+                        момент его получения. При этом работник отделения почтовой связи взыскивает с
+                        адресата при вручении ему почтового отправления сумму наложенного платежа,
+                        которая направляется почтовым денежным переводом в наш адрес.
+                        Комиссия за риски при использовании данной формы оплаты/доставки составит 5% от суммы заказа.
+                    </p>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>
