@@ -31,7 +31,7 @@ public class PublisherService {
 
     public PublisherDTO addNewPublisher(CreateOrUpdatePublisherRequest request) {
         publisherRepository.findPublisherByName(request.name()).ifPresent(PublisherEntity -> {
-            throw new BadRequestException("Publisher " + request.name() + " already exists");
+            throw new BadRequestException("Издательство " + request.name() + " уже существует");
         });
         PublisherEntity publisher = publisherMapper.mapToEntity(request);
         return publisherMapper.mapEntityToDto(publisherRepository.save(publisher));
@@ -39,13 +39,13 @@ public class PublisherService {
 
     public PublisherEntity findEntityById(Long id) {
         return publisherRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Publisher not exist"));
+                .orElseThrow(() -> new NotFoundException("Издательство не найдено"));
     }
 
     public void deletePublisher(Long id) {
         boolean exists = publisherRepository.existsById(id);
         if (!exists) {
-            throw new NotFoundException("Publisher not exist");
+            throw new NotFoundException("Издательство не найдено");
         }
         publisherRepository.deleteById(id);
     }
@@ -53,11 +53,11 @@ public class PublisherService {
     @Transactional
     public PublisherDTO updatePublisher(Long id, CreateOrUpdatePublisherRequest request) {
         PublisherEntity publisherEntity = publisherRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Publisher not exist")
+                () -> new NotFoundException("Издательство не найдено")
         );
         if (!Objects.equals(publisherEntity.getName(), request.name())) {
             publisherRepository.findPublisherByName(request.name()).ifPresent(entity -> {
-                throw new BadRequestException("Publisher name " + request.name() + " is using, you can't use it");
+                throw new BadRequestException("Название издательства " + request.name() + " уже используется, измените название");
             });
         }
         publisherEntity.setName(request.name());

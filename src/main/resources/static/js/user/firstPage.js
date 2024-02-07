@@ -16,7 +16,7 @@ $(document).ready(() => {
             $('#books').empty();
             $('#books2').empty();
             for (var i = 0; i < 3; i++) {
-                    bookId = books[i].id
+                    book_id = books[i].id
                     // console.log(bookId)
                     const img = $('<img src="' + books[i].image + '" alt="">')
                     const price = $('<h2>' + books[i].price + ' р</h2>')
@@ -30,8 +30,9 @@ $(document).ready(() => {
     
                     const ul1 = $('<a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>')
                     ul1.click(() => {
-                    ajaxPOSTWithoutResponse('/api/order', {bookId: bookId, action: 'CREATE_BOOK'},
-                        () => showMessage("Книга добавлена в корзину", 1000))
+                        /*console.log('ID:', book_id);
+                        ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book_id, action: 'APPEND_BOOK'},
+                            () => showMessage("Книга добавлена в корзину", 1000))*/
                     })
     
                     const div5 = $('<div class="productinfo text-center"></div>')

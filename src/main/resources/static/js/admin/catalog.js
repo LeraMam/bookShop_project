@@ -10,7 +10,7 @@ const getPriceRangeValues = () => {
     return [slide1, slide2]
 }
 const updatePriceRangeValues = (min, max) => {
-    $('.rangeValues').text("$" + min + " – $" + max);
+    $('.rangeValues').text(min + " BYN – " + max + " BYN");
 }
 
 

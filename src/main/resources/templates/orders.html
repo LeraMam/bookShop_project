@@ -207,7 +207,7 @@
 
                     const submitBtn = $('<button id="orderSubmitBtn" class="btn btn-default update"></button> <br><br>');
                     submitBtn.text(orderState === 'SUBMITTED' ? 'Начать обработку' :
-                        orderState === 'IN_PROCESSING' ? 'Заказ обработан' : '')
+                        orderState === 'IN_PROCESSING' ? 'Заказ доставлен' : '')
 
                     const nextState = orderState === 'SUBMITTED' ? 'IN_PROCESSING' :
                         orderState === 'IN_PROCESSING' ? 'RESOLVED' : undefined;
@@ -219,7 +219,7 @@
                 //   })
             })
 
-            $('#ordersListTitle').text(orderState === 'SUBMITTED' ? 'Открытые заказы' :
+            $('#ordersListTitle').text(orderState === 'SUBMITTED' ? 'Ожидающие заказы' :
                 orderState === 'IN_PROCESSING' ? 'Заказы в обработке' : '')
         }))
 

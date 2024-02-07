@@ -68,7 +68,7 @@ public class UserService {
 
     public UserDTO addNewUser(CreateUserRequest request) throws FirebaseAuthException {
         userRepository.findByEmail(request.email()).ifPresent(userEntity -> {
-            throw new BadRequestException("User with email " + request.email() + " exists");
+            throw new BadRequestException("Пользователь с почтой " + request.email() + " уже существует");
         });
         UserRecord.CreateRequest createRequest = new UserRecord.CreateRequest()
                 .setEmail(request.email())

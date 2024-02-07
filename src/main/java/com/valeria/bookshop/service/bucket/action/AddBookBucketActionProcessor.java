@@ -28,7 +28,7 @@ public class AddBookBucketActionProcessor implements BucketActionProcessor {
                 .stream()
                 .filter(bookInBucketEntity -> Objects.equals(bookInBucketEntity.getBook().getId(), request.bookId()))
                 .findFirst()
-                .orElseThrow(() -> new BadRequestException("Cannot find book in bucket"));
+                .orElseThrow(() -> new BadRequestException("Книги нет в корзине"));
         bookInBucket.setBookCount(bookInBucket.getBookCount() + 1);
         bucketRepository.save(bucketEntity);
     }

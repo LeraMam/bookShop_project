@@ -20,7 +20,7 @@
 
                 $('#AddToCart').click(() => {
                     console.log('ID:', book.id);
-                    ajaxPOSTWithoutResponse('/api/order', {bookId: book.id, action: 'CREATE_BOOK'},
+                    ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_BOOK'},
                         () => showMessage("Книга добавлена в корзину", 1000))
                 })
             })
@@ -46,7 +46,7 @@
                             <h2 id="name"></h2>
                             <span>
 								<span id="price"></span>
-                                    <button th:if="${uRole != null && uRole == 'USER'}" id="AddToCart" type="button" class="btn btn-default cart">
+                                    <button sec:authorize="hasRole('ROLE_USER')" id="AddToCart" type="button" class="btn btn-default cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         В корзину
                                     </button>

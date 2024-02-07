@@ -56,13 +56,13 @@ public class BookService {
     public void deleteBook(Long bookId) {
         boolean exists = bookRepository.existsById(bookId);
         if (!exists) {
-            throw new NotFoundException("book with id " + bookId + "does not exist");
+            throw new NotFoundException("Книга с заданным id " + bookId + "не существует");
         }
         bookRepository.deleteById(bookId);
     }
 
     public BookEntity findEntityById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("book with id " + id + "does not exist"));
+                .orElseThrow(() -> new NotFoundException("Книга с заданным id " + id + "не существует"));
     }
 }

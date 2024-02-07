@@ -29,7 +29,7 @@ public class AppendBookBucketActionProcessor implements BucketActionProcessor {
                 .filter(bookInBucketEntity -> Objects.equals(bookInBucketEntity.getBook().getId(), request.bookId()))
                 .findFirst()
                 .ifPresent(bookInBucketEntity -> {
-                    throw new BadRequestException("Book exists in the bucket");
+                    throw new BadRequestException("Книга уже добавлена в корзину");
                 });
         BookInBucketEntity bookInBucketEntity = new BookInBucketEntity();
         bookInBucketEntity.setBook(bookService.findEntityById(request.bookId()));

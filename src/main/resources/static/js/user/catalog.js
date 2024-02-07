@@ -10,7 +10,7 @@ const getPriceRangeValues = () => {
     return [slide1, slide2]
 }
 const updatePriceRangeValues = (min, max) => { //подпись
-    $('.rangeValues').text("$" + min + " – $" + max);
+    $('.rangeValues').text(min + " BYN – " + max + " BYN");
 }
 
 const updatePriceRange = () => {
@@ -169,7 +169,7 @@ const fillSearchParams = () => { //заполняем данные для фил
     searchParams.category = new Set(urlParams.getAll('category').map(v=>parseInt(v)))
     searchParams.author = new Set(urlParams.getAll('author').map(v=>parseInt(v)))
     searchParams.publisher = new Set(urlParams.getAll('publisher').map(v=>parseInt(v)))
-    searchParams.year = new Set(urlParams.getAll('year'))
+    searchParams.year = new Set(urlParams.getAll('year'))//ВОЗМОЖНО ОШИБКА ЗДЕСЬ, НАДО ДОБАВИТЬ .map(v=>parseInt(v)))
     searchParams.priceMin = parseFloat(urlParams.get('priceMin'))
     searchParams.priceMax = parseFloat(urlParams.get('priceMax'))
 
@@ -211,7 +211,7 @@ const reloadBooks = () => {
             const div1 = $('<div class="col-sm-4"></div>')
             const div2 = $('<div class="product-image-wrapper"></div>')
 
-            const div3_1 = $('<div class="single-products">')
+            const div3_1 = $('<div id="product-in-catalog" class="single-products">')
             const div3_2 = $('<div class="choose"></div>')
             const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
             ul1.click(() => {

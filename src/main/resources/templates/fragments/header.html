@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="/static"><img src="images/home/DodoBook2.png" height="50px" alt=""/></a>
+                            <a href="/catalog"><img src="images/home/DodoBook2.png" height="50px" alt=""/></a>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -83,7 +83,7 @@
                                 <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a>Заказы<i
                                         class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="/orders?state=SUBMITTED">Открытые заказы</a></li>
+                                        <li><a href="/orders?state=SUBMITTED">Ожидающие заказы</a></li>
                                         <li><a href="/orders?state=IN_PROCESSING">Заказы в обработке</a></li>
                                     </ul>
                                 </li>

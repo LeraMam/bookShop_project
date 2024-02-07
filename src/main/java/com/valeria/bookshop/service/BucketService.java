@@ -52,7 +52,7 @@ public class BucketService {
 
     public void changeBucketState(Long bucketId, BucketState bucketState) {
         BucketEntity bucketEntity = bucketRepository.findById(bucketId)
-                .orElseThrow(() -> new NotFoundException("Bucket not found"));
+                .orElseThrow(() -> new NotFoundException("Корзина не найдена"));
         bucketEntity.setState(bucketState);
         bucketRepository.save(bucketEntity);
     }

@@ -40,14 +40,14 @@ public class AuthorService {
             }
         });
         if (!notExistingIds.isEmpty()) {
-            throw new NotFoundException("Authors" + notExistingIds + "not exist");
+            throw new NotFoundException("Авторы " + notExistingIds + "не найдены");
         }
         return authorEntities;
     }
 
     public AuthorDTO addNewAuthor(CreateOrUpdateAuthorRequest request) {
         authorRepository.findAuthorByName(request.name()).ifPresent(AuthorEntity -> {
-            throw new BadRequestException("Author " + request.name() + " already exists");
+            throw new BadRequestException("Автор " + request.name() + " уже существует");
         });
         AuthorEntity author = authorMapper.mapToEntity(request);
         return authorMapper.mapEntityToDto(authorRepository.save(author));
@@ -56,7 +56,7 @@ public class AuthorService {
     public void deleteAuthor(Long authorId) {
         boolean exists = authorRepository.existsById(authorId);
         if (!exists) {
-            throw new NotFoundException("Author not exist");
+            throw new NotFoundException("Автор не найден");
         }
         authorRepository.deleteById(authorId);
     }
@@ -64,11 +64,11 @@ public class AuthorService {
     @Transactional
     public AuthorDTO updateAuthor(Long authorId, CreateOrUpdateAuthorRequest request) {
         AuthorEntity authorEntity = authorRepository.findById(authorId).orElseThrow(
-                () -> new NotFoundException("Author not exist")
+                () -> new NotFoundException("Автор не найден")
         );
         if (!Objects.equals(authorEntity.getName(), request.name())) {
             authorRepository.findAuthorByName(request.name()).ifPresent(entity -> {
-                throw new BadRequestException("Author name " + request.name() + " is using, you can't use it");
+                throw new BadRequestException("Имя автора " + request.name() + " уже используется, измените имя");
             });
         }
         authorEntity.setName(request.name());

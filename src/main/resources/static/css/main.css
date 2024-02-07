@@ -943,6 +943,9 @@ h2.title {
 	font-weight: 700;
 }
 
+#product-in-catalog{
+  height: 505px;
+}
 
 .productinfo p{
   font-family: 'Roboto', sans-serif;

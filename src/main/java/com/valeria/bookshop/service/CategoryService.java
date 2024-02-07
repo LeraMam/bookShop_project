@@ -36,14 +36,14 @@ public class CategoryService {
             }
         });
         if (!notExistingIds.isEmpty()) {
-            throw new NotFoundException("Authors" + notExistingIds + "not exist");
+            throw new NotFoundException("Категории " + notExistingIds + "не найдены");
         }
         return categoryEntities;
     }
 
     public CategoryDTO addNewCategory(CreateOrUpdateCategoryRequest request) {
         categoryRepository.findCategoryByName(request.name()).ifPresent(categoryEntity -> {
-            throw new BadRequestException("Category " + request.name() + " already exists");
+            throw new BadRequestException("Категория " + request.name() + " уже существует");
         });
         CategoryEntity category = categoryMapper.mapToEntity(request);
         return categoryMapper.mapEntityToDto(categoryRepository.save(category));
@@ -52,18 +52,18 @@ public class CategoryService {
     public void deleteCategory(Long id) {
         boolean exists = categoryRepository.existsById(id);
         if (!exists) {
-            throw new NotFoundException("Category not exist");
+            throw new NotFoundException("Категория не найдена");
         }
         categoryRepository.deleteById(id);
     }
 
     public CategoryDTO updateCategory(Long id, CreateOrUpdateCategoryRequest request) {
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Category not exist")
+                () -> new NotFoundException("Категория не найдена")
         );
         if (!Objects.equals(categoryEntity.getName(), request.name())) {
             categoryRepository.findCategoryByName(request.name()).ifPresent(entity -> {
-                throw new BadRequestException("Category name " + request.name() + " is using, you can't use it");
+                throw new BadRequestException("Название категории " + request.name() + " уже используется, измените название");
             });
         }
         categoryEntity.setName(request.name());
