@@ -45,7 +45,7 @@ public class BookController {
                 .filter(bookDTO -> CollectionUtils.isEmpty(category) || CollectionUtils.containsAny(category, bookDTO.getCategories().stream().map(CategoryDTO::getId).toList()))
                 .filter(bookDTO -> CollectionUtils.isEmpty(authors) || CollectionUtils.containsAny(authors, bookDTO.getAuthors().stream().map(AuthorDTO::getId).toList()))
                 .filter(bookDTO -> CollectionUtils.isEmpty(publisher) || CollectionUtils.containsInstance(publisher, bookDTO.getPublisher().getId()))
-                .filter(bookDTO -> CollectionUtils.isEmpty(years) || CollectionUtils.containsInstance(years, bookDTO.getPublishYear()))
+                .filter(bookDTO -> CollectionUtils.isEmpty(years) || years.contains(bookDTO.getPublishYear()))
                 .filter(bookDTO -> priceMin == null || bookDTO.getPrice() >= priceMin)
                 .filter(bookDTO -> priceMax == null || bookDTO.getPrice() <= priceMax)
                 .collect(Collectors.toList());
