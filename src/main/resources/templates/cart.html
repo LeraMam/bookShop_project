@@ -62,7 +62,6 @@
 
         $(document).ready(() => {
             reloadCart();
-
             $('#addressForm').submit(event => {
                 event.preventDefault();
                 const body = {};
@@ -70,7 +69,6 @@
                 $.each($('#addressForm').serializeArray(), (i, field) => {
                     body[field.name] = field.value;
                 })
-
                 ajaxPOSTWithoutResponse('/api/bucket/submit', body, () => {
                     window.location.href = '/catalog'
                 })

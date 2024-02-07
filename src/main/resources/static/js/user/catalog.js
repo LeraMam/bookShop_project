@@ -169,7 +169,7 @@ const fillSearchParams = () => { //заполняем данные для фил
     searchParams.category = new Set(urlParams.getAll('category').map(v=>parseInt(v)))
     searchParams.author = new Set(urlParams.getAll('author').map(v=>parseInt(v)))
     searchParams.publisher = new Set(urlParams.getAll('publisher').map(v=>parseInt(v)))
-    searchParams.year = new Set(urlParams.getAll('year'))//ВОЗМОЖНО ОШИБКА ЗДЕСЬ, НАДО ДОБАВИТЬ .map(v=>parseInt(v)))
+    searchParams.year = new Set(urlParams.getAll('year'))
     searchParams.priceMin = parseFloat(urlParams.get('priceMin'))
     searchParams.priceMax = parseFloat(urlParams.get('priceMax'))
 

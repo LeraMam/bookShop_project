@@ -7,6 +7,7 @@ import com.valeria.bookshop.db.entity.UserEntity;
 import com.valeria.bookshop.db.repository.BucketRepository;
 import com.valeria.bookshop.db.repository.DeliveryRepository;
 import com.valeria.bookshop.dto.BucketDTO;
+import com.valeria.bookshop.exception.BadRequestException;
 import com.valeria.bookshop.exception.NotFoundException;
 import com.valeria.bookshop.mapper.BucketMapper;
 import com.valeria.bookshop.request.BucketActionRequest;
@@ -39,6 +40,7 @@ public class BucketService {
     public void submitBucket(DeliveryEntity deliveryEntity) {
         BucketEntity bucketEntity = getOrCreateBucketEntity();
         bucketEntity.setDelivery(deliveryEntity);
+        if (bucketEntity.getBooks().isEmpty()) throw new BadRequestException("Корзина пуста");
         bucketEntity.setState(BucketState.SUBMITTED);
         bucketRepository.save(bucketEntity);
     }

@@ -33,6 +33,7 @@ public class BookController {
 
     @GetMapping()
     public List<BookDTO> getAllBooks(
+            @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "category", required = false) List<Long> category,
             @RequestParam(value = "author", required = false) List<Long> authors,
             @RequestParam(value = "publisher", required = false) List<Long> publisher,
@@ -42,6 +43,7 @@ public class BookController {
     ) {
         return bookService.getAllBooks()
                 .stream()
+                .filter(bookDTO -> search == null || bookDTO.getName().contains(search))
                 .filter(bookDTO -> CollectionUtils.isEmpty(category) || CollectionUtils.containsAny(category, bookDTO.getCategories().stream().map(CategoryDTO::getId).toList()))
                 .filter(bookDTO -> CollectionUtils.isEmpty(authors) || CollectionUtils.containsAny(authors, bookDTO.getAuthors().stream().map(AuthorDTO::getId).toList()))
                 .filter(bookDTO -> CollectionUtils.isEmpty(publisher) || CollectionUtils.containsInstance(publisher, bookDTO.getPublisher().getId()))
