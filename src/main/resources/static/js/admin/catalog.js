@@ -130,21 +130,21 @@ const filterItemsConfig = { //создаем характеристики эле
             inputs: {
                 //id инпута и филд обьекта, который мы будем отправлять на бек
                 filterItemModalCategoryName: {
-                    placeholder: "Имя автора",
+                    placeholder: "Название бренда",
                     objectField: 'name'
                 }
             }
         },
         createRequest: {
-            modalHeader: 'Добавление автора',
-            successMessage: 'Автор добавлен'
+            modalHeader: 'Добавление бренда',
+            successMessage: 'Бренд добавлен'
         },
         updateRequest: {
-            modalHeader: 'Редактирование автора',
-            successMessage: 'Автор обновлен'
+            modalHeader: 'Редактирование бренда',
+            successMessage: 'Бренд обновлен'
         },
         deleteRequest: {
-            successMessage: 'Автор удален'
+            successMessage: 'Бренд удален'
         },
         toViewItemModelMapper: (author) => {
             //TODO count
@@ -162,21 +162,21 @@ const filterItemsConfig = { //создаем характеристики эле
             inputs: {
                 //id инпута и филд обьекта, который мы будем отправлять на бек
                 filterItemModalCategoryName: {
-                    placeholder: "Издательство",
+                    placeholder: "Группа",
                     objectField: 'name'
                 }
             }
         },
         createRequest: {
-            modalHeader: 'Добавление издательства',
-            successMessage: 'Издательство добавлено'
+            modalHeader: 'Добавление группы',
+            successMessage: 'Группа добавлена'
         },
         updateRequest: {
-            modalHeader: 'Редактирование издательства',
-            successMessage: 'Издательство обновлено'
+            modalHeader: 'Редактирование группы',
+            successMessage: 'Группа обновлена'
         },
         deleteRequest: {
-            successMessage: 'Издательство удалено'
+            successMessage: 'Группа удалена'
         },
         toViewItemModelMapper: (publisher) => {
             return {id: publisher.id, name: publisher.name}
@@ -296,7 +296,7 @@ const createFilterItem = (conf, viewItem, editAction = () => {
     a.append(span)
 
     if (conf.deleteRequest) {
-        let iRemove = $('<i class="fa fa-trash-o" style="color: red"></i>')
+        let iRemove = $('<i class="fa fa-trash-o" style="color: #800000"></i>')
 
         iRemove.click(() => ajaxDELETE(conf.baseUrl + '/' + viewItem.id, () => {
             showMessage(conf.deleteRequest.successMessage, 1500);
@@ -308,7 +308,7 @@ const createFilterItem = (conf, viewItem, editAction = () => {
     }
 
     if (conf.updateRequest) {
-        let iEdit = $('<i class="fa fa-pencil-square" style="color: blue"></i>')
+        let iEdit = $('<i class="fa fa-pencil-square" style="color: darkblue"></i>')
         iEdit.click(editAction)
         a.append(iEdit)
     }
@@ -386,12 +386,15 @@ function readImage(inputElement) {
 
 const openBookModal = (book = null, submitAction = (book) => {
 }) => {
+    console.log('С сервера приходит это: ');
+    console.log(book);
+
     if (!book) {
         $('#bookModalBookImage').prop('required', true)
-        $('#bookModalLabel').text('Добавить книгу')
+        $('#bookModalLabel').text('Добавить товар')
     } else {
         $('#bookModalBookImage').prop('required', false)
-        $('#bookModalLabel').text('Изменить книгу: ' + book.name)
+        $('#bookModalLabel').text('Изменить товар: ' + book.name)
     }
     book = book ? book : {};
 
@@ -428,14 +431,13 @@ const openBookModal = (book = null, submitAction = (book) => {
         })
         $('#bookModalPublisherSelect').selectpicker("refresh");
 
-        //$('#bookModalBookYear').val(book.publishYear);
+        $('#bookModalBookYear').val(book.publishYear);
         $('#bookModalBookPriceRub').val(book.price);
 
         $('#bookModal').modal('show')
     })
 
     $('#bookForm').submit((event) => {
-
         event.preventDefault();
         readImage($('#bookModalBookImage')).done(base64Data => {
             if (base64Data) {
@@ -447,10 +449,11 @@ const openBookModal = (book = null, submitAction = (book) => {
             book.authors = extractSelectedItems('bookModalAuthorsSelect'); //читаем выбранные элементы
             book.categories = extractSelectedItems('bookModalCategorySelect');
             book.publisher = extractSingleSelectedItem('bookModalPublisherSelect');//читаем выбранный элемент
-            book.publishYear = Number.parseInt($('#bookModalBookYear').val());
+            //book.publishYear = Number.parseInt($('#bookModalBookYear').val());
+            book.publishYear = $('#bookModalBookYear').val();
 
             submitAction(book)
-
+            console.log(book);
             $('#bookModal').modal('hide');
         });
     })
@@ -459,54 +462,61 @@ const openBookModal = (book = null, submitAction = (book) => {
 const reloadBooks = () => {
     ajaxGET('/api/book?' + new URLSearchParams(window.location.search), books => {
         $('#books').empty();
-        books.forEach(book => {
-            // $('#searchForm').unbind( "submit" )
-            const img = $('<img src="' + book.image + '" alt="">')
-            const price = $('<h2>' + book.price + ' р</h2>')
-            const name = $('<p>' + book.name + '</p>')
+        if (books.length == 0) {
+            const message = $('<p id="message" class="text-center">Ничего не найдено</p>')
+            const nothing_found = $('<img src="../../images/sad_cat.jpg">')
+            $('#books').append(message)
+            $('#books').append(nothing_found)
+        }
+        else{
+            books.forEach(book => {
+                // $('#searchForm').unbind( "submit" )
+                const img = $('<img src="' + book.image + '" alt="">')
+                const price = $('<h2>' + book.price + ' р</h2>')
+                const name = $('<p>' + book.name + '</p>')
 
-            const div1 = $('<div class="col-sm-4"></div>')
-            const div2 = $('<div class="product-image-wrapper"></div>')
-            const div3_1 = $('<div class="single-products">')
+                const div1 = $('<div class="col-sm-4"></div>')
+                const div2 = $('<div class="product-image-wrapper"></div>')
+                const div3_1 = $('<div class="single-products">')
 
-            const div3_2 = $('<div class="choose"></div>')
-            const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
-            ul1.click(() => {
-                window.location.href = '/details?book=' + book.id;
-            })
-            const ul3 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
-                'fa-trash-o"></i>Удалить книгу</a></li></ul>')
-            ul3.click(() => {
-                ajaxDELETE('/api/book/' + book.id, () => {
-                    showMessage('Книга удалена', 1500)
-                    reloadBooks()
-                });
-            })
-            const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
-                'fa-wrench"></i>Изменить книгу</a></li></ul>')
-            ul2.click(() => {
-                openBookModal(book, (updatedBook) => {
-                    ajaxPUT('/api/book/' + updatedBook.id, updatedBook, () => {
-                        showMessage('Книга изменена', 1000, () => {
-                            reloadBooks();
+                const div3_2 = $('<div class="choose"></div>')
+                const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
+                ul1.click(() => {
+                    window.location.href = '/details?book=' + book.id;
+                })
+                const ul3 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
+                    'fa-trash-o"></i>Удалить товар</a></li></ul>')
+                ul3.click(() => {
+                    ajaxDELETE('/api/book/' + book.id, () => {
+                        showMessage('Товар удален', 1500)
+                        reloadBooks()
+                    });
+                })
+                const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
+                    'fa-wrench"></i>Изменить товар</a></li></ul>')
+                ul2.click(() => {
+                    openBookModal(book, (updatedBook) => {
+                        ajaxPUT('/api/book/' + updatedBook.id, updatedBook, () => {
+                            showMessage('Товар изменен', 1000, () => {
+                                reloadBooks();
+                            })
                         })
                     })
                 })
+
+                div3_2.append(ul1, ul2, ul3)
+                const div4 = $('<div class="productinfo text-center"></div>')
+
+                div1.append(div2)
+                div2.append(div3_1)
+                div2.append(div3_2)
+                div3_1.append(div4)
+                div4.append(img, price, name)
+
+                $('#books').append(div1)
             })
-
-            div3_2.append(ul1, ul2, ul3)
-            const div4 = $('<div class="productinfo text-center"></div>')
-
-            div1.append(div2)
-            div2.append(div3_1)
-            div2.append(div3_2)
-            div3_1.append(div4)
-            div4.append(img, price, name)
-
-            $('#books').append(div1)
-        })
+        }
     })
-
     updateFilterItemsList(filterItemsConfig.years)
     updatePriceRange()
 }
@@ -532,7 +542,7 @@ $(document).ready(() => {
     $('#createBookBtn').click(() => {
         openBookModal(null, (book) => {
             ajaxPOST('/api/book', book, () => {
-                showMessage("Книга создана", 1000, () => {
+                showMessage("Товар создан", 1000, () => {
                     reloadBooks();
                 })
             })
@@ -545,7 +555,7 @@ $(document).ready(() => {
         '                 <div class="col-sm-3">\n' +
         '                    <div class="search_box pull-right">\n' +
         '                        <form id="search_form">\n' +
-        '                            <input type="text" id="search_search" placeholder="Глобальный поиск">\n' +
+        '                            <input type="text" id="search_search" placeholder="Поиск" autocomplete="off">\n' +
         '                            <button id="" type="submit" class="btn success">.</button>\n' +
         '                        </form>\n' +
         '                    </div>\n' +

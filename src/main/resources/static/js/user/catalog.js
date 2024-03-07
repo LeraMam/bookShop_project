@@ -141,6 +141,7 @@ const createFilterItem = (conf, viewItem) => { //создаем кнопки
 
 const showFilterResults = () => {  //отправляем данные и получаем выборку,если в переменной ничего, то выводится все
     const urlParams = new URLSearchParams();
+
     if (searchParams.searchByName) {
         urlParams.append('search', searchParams.searchByName);
     }
@@ -203,39 +204,47 @@ function readImage(inputElement) {
 const reloadBooks = () => {
     ajaxGET('/api/book?' + new URLSearchParams(window.location.search), books => {
         $('#books').empty();
-        books.forEach(book => {
-            const img = $('<img src="' + book.image + '" alt="">')
-            const price = $('<h2>' + book.price + ' р</h2>')
-            const name = $('<p>' + book.name + '</p>')
+        if (books.length == 0) {
+            const message = $('<p id="message" class="text-center">Ничего не найдено</p>')
+            const nothing_found = $('<img src="../../images/sad_cat.jpg">')
+            $('#books').append(message)
+            $('#books').append(nothing_found)
+        }
+        else{
+            books.forEach(book => {
+                const img = $('<img src="' + book.image + '" alt="">')
+                const price = $('<h2>' + book.price + ' р</h2>')
+                const name = $('<p>' + book.name + '</p>')
 
-            const div1 = $('<div class="col-sm-4"></div>')
-            const div2 = $('<div class="product-image-wrapper"></div>')
+                const div1 = $('<div class="col-sm-4"></div>')
+                const div2 = $('<div class="product-image-wrapper"></div>')
 
-            const div3_1 = $('<div id="product-in-catalog" class="single-products">')
-            const div3_2 = $('<div class="choose"></div>')
-            const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
-            ul1.click(() => {
-                window.location.href = '/details?book=' + book.id;
+                const div3_1 = $('<div id="product-in-catalog" class="single-products">')
+                const div3_2 = $('<div class="choose"></div>')
+                const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
+                ul1.click(() => {
+                    window.location.href = '/details?book=' + book.id;
+                })
+                const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
+                    'fa-shopping-cart"></i>В корзину</a></li></ul>')
+                ul2.click(() => {
+                    console.log('ID:', book.id);
+                    ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_BOOK'},
+                        () => showMessage("Товар добавлен в корзину", 1000))
+                })
+                div3_2.append(ul1, ul2)
+
+                const div4 = $('<div class="productinfo text-center"></div>')
+
+                div1.append(div2)
+                div2.append(div3_1)
+                div2.append(div3_2)
+                div3_1.append(div4)
+                div4.append(img, price, name)
+
+                $('#books').append(div1)
             })
-            const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
-                'fa-shopping-cart"></i>В корзину</a></li></ul>')
-            ul2.click(() => {
-                console.log('ID:', book.id);
-                ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_BOOK'},
-                    () => showMessage("Книга добавлена в корзину", 1000))
-            })
-            div3_2.append(ul1, ul2)
-
-            const div4 = $('<div class="productinfo text-center"></div>')
-
-            div1.append(div2)
-            div2.append(div3_1)
-            div2.append(div3_2)
-            div3_1.append(div4)
-            div4.append(img, price, name)
-
-            $('#books').append(div1)
-        })
+        }
     })
     updateFilterItemsList(filterItemsConfig.years)
     updatePriceRange()
@@ -254,7 +263,7 @@ $(document).ready(() => {
         '                 <div class="col-sm-3">\n' +
         '                    <div class="search_box pull-right">\n' +
         '                        <form id="search_form">\n' +
-        '                            <input type="text" id="search_search" placeholder="Глобальный поиск">\n' +
+        '                            <input type="text" id="search_search" placeholder="Поиск">\n' +
         '                            <button id="" type="submit" class="btn success">.</button>\n' +
         '                        </form>\n' +
         '                    </div>\n' +

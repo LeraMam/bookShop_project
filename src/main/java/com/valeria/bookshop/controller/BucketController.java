@@ -1,5 +1,6 @@
 package com.valeria.bookshop.controller;
 
+import com.valeria.bookshop.additional_classes.BuckerReadingRequest;
 import com.valeria.bookshop.db.entity.BucketState;
 import com.valeria.bookshop.db.entity.DeliveryEntity;
 import com.valeria.bookshop.dto.BucketDTO;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,6 +47,11 @@ public class BucketController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/all")
     public List<BucketDTO> getAllBucketsForUser() {
+        /*List<BucketDTO> backets = bucketService.getBucketsForCurrentUser();
+        BuckerReadingRequest buckerReadingRequest = new BuckerReadingRequest();
+        List<String> states = new ArrayList<>();
+        states.add((String)BucketState.OPEN);
+        buckerReadingRequest.setBuckets(backets);*/
         return bucketService.getBucketsForCurrentUser();
     }
 

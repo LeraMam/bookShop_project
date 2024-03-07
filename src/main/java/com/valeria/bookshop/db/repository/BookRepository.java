@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
     @Query("select distinct b.publishYear from BookEntity b")
-    List<Long> findYearsDistinct();
+    List<String> findYearsDistinct();
 
     @Query("select min(b.price) from BookEntity b")
     Long findMinPrice();

@@ -27,16 +27,12 @@ public class BucketEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BookInBucketEntity> books;
-
     @Enumerated(EnumType.STRING)
     private BucketState state;
-
     @OneToOne(cascade = CascadeType.ALL)
     private DeliveryEntity delivery;
-
     @ManyToOne
     private UserEntity userEntity;
 }

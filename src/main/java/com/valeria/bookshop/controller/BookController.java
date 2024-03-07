@@ -37,7 +37,7 @@ public class BookController {
             @RequestParam(value = "category", required = false) List<Long> category,
             @RequestParam(value = "author", required = false) List<Long> authors,
             @RequestParam(value = "publisher", required = false) List<Long> publisher,
-            @RequestParam(value = "year", required = false) List<Integer> years,
+            @RequestParam(value = "year", required = false) List<String> years,
             @RequestParam(value = "priceMin", required = false) Double priceMin,
             @RequestParam(value = "priceMax", required = false) Double priceMax
     ) {

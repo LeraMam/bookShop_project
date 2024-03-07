@@ -28,7 +28,7 @@ public class DeleteBookBucketActionProcessor implements BucketActionProcessor {
                 .stream()
                 .filter(bookInBucketEntity -> Objects.equals(bookInBucketEntity.getBook().getId(), request.bookId()))
                 .findFirst()
-                .orElseThrow(() -> new BadRequestException("Книги нет в корзине"));
+                .orElseThrow(() -> new BadRequestException("Товара нет в корзине"));
         bucketEntity.getBooks().remove(bookInBucket);
         bucketRepository.save(bucketEntity);
         bookInBucketRepository.delete(bookInBucket);

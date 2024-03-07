@@ -31,10 +31,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private String email;
-    @OneToMany(cascade = CascadeType.ALL) //нужно прявязать заказ к пользователю, но так, чтобы при создании
-    // пользователя не надо было создавать сразу и заказ. надо при создании заказа брать айди пользователя
-    //и добавлять его в список заказов пользователя. это нужно делать когда будет реализована авторизация
-    // и соответственно мы будем знать данные авторизованного пользователя
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BucketEntity> buckets = new ArrayList<>();
 
 }

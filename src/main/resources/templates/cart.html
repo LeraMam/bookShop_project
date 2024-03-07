@@ -87,7 +87,7 @@
             <table class="table table-condensed">
                 <thead>
                 <tr class="cart_menu">
-                    <td class="image">Книга</td>
+                    <td class="image">Товар</td>
                     <td class="description"></td>
                     <td class="price">Цена</td>
                     <td class="quantity">Количество</td>
@@ -118,35 +118,35 @@
                         <li class="single_field zip-field">
                             <label>Номер телефона:</label>
                             <input name="tel" type="tel" pattern="\+375[0-9]{2}[0-9]{7}" placeholder="+375xxxxxxxxx"
-                                   required value="">
+                                   required value="" autocomplete="off">
                         </li>
                     </ul>
                     <ul class="user_info">
                         <li class="single_field zip-field">
                             <label>Область:</label>
-                            <input name="region" type="text" required value="">
+                            <input name="region" type="text" required value="" autocomplete="off">
                         </li>
                         <li class="single_field zip-field">
                             <label>Город:</label>
-                            <input name="city" type="text" required value="">
+                            <input name="city" type="text" required value="" autocomplete="off">
                         </li>
                         <li class="single_field zip-field">
                             <label>Индекс:</label>
-                            <input name="zip" type="number" required value="220023">
+                            <input name="zip" type="number" required value="220023" autocomplete="off">
                         </li>
                     </ul>
                     <ul class="user_info">
                         <li class="single_field zip-field">
                             <label>Улица:</label>
-                            <input name="street" type="text" required value="">
+                            <input name="street" type="text" required value="" autocomplete="off">
                         </li>
                         <li class="single_field zip-field">
                             <label>Дом:</label>
-                            <input name="house" type="text" required value="">
+                            <input name="house" type="text" required value="" autocomplete="off">
                         </li>
                         <li class="single_field zip-field">
                             <label>Квартира:</label>
-                            <input name="flat" type="text" required value="">
+                            <input name="flat" type="text" required value="" autocomplete="off">
                         </li>
                     </ul>
                     <button id="addressFormButton" class="btn btn-default update" type="submit">Оформить заказ</button>

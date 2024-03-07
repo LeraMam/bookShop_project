@@ -21,7 +21,7 @@ public class BookEntity {
     @Column(columnDefinition = "longtext")
     private String image;
     private double price;
-    private Integer publishYear;
+    private String publishYear;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<AuthorEntity> authors = new ArrayList<>();

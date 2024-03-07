@@ -39,7 +39,7 @@ create table  if not exists book_entity
     image        longtext     null,
     name         varchar(255) null,
     price        double       not null,
-    publish_year int          null,
+    publish_year varchar(255)          null,
     publisher_id bigint       null,
     constraint FKbxob2ku1fl0q5sxp5n1h1dswn
         foreign key (publisher_id) references publisher_entity (id)

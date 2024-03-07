@@ -12,10 +12,10 @@
                 // console.log(book.id);
                 $('#image').attr('src', book.image)
                 $('#name').text(book.name)
-                $('#authors').append('<b>Автор: </b>', book.authors.map(a=>a.name).join(', '))
+                $('#authors').append('<b>Бренд: </b>', book.authors.map(a=>a.name).join(', '))
                 $('#categories').append('<b>Категории: </b>', book.categories.map(a=>a.name).join(', '))
-                $('#year').append('<b>Год: </b>', book.publishYear)
-                $('#publisher').append('<b>Издательство: </b>', book.publisher.name)
+                $('#year').append('<b>Страна производства: </b>', book.publishYear)
+                $('#publisher').append('<b>Целевая группа покупателей: </b>', book.publisher.name)
                 $('#price').append(book.price+' Р')
 
                 $('#AddToCart').click(() => {
@@ -53,10 +53,8 @@
 							</span>
                             <p id="authors"></p>
                             <p id="categories"></p>
-                            <p id="year"></p><br>
-                            <p><b>Наличие:</b> На складе</p>
+                            <p id="year"></p>
                             <p id="publisher"></p>
-
                         </div>
                     </div>
                 </div>

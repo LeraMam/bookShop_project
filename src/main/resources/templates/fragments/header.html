@@ -8,7 +8,7 @@
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
                                 <li><a href="https://www.google.com/intl/ru/gmail/about/" target="_blank"><i
-                                        class="fa fa-envelope"></i> dodoshop@gmail.com</a></li>
+                                        class="fa fa-envelope"></i> shopwise@gmail.com</a></li>
                             </ul>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="/catalog"><img src="images/home/DodoBook2.png" height="50px" alt=""/></a>
+                            <img src="images/home/Logo.png" height="50px" alt=""/>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -88,20 +88,21 @@
                                     </ul>
                                 </li>
                                 <li sec:authorize="!hasRole('ROLE_ADMIN')"><a href="/">Главная</a></li>
-                                <li class="dropdown" sec:authorize="!hasRole('ROLE_ADMIN')"><a href="#">Магазин<i
+                                <li sec:authorize="!hasRole('ROLE_ADMIN')"><a href="/catalog">Каталог</a></li>
+                               <!-- <li class="dropdown" sec:authorize="!hasRole('ROLE_ADMIN')"><a href="#">Магазин<i
                                         class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="/catalog">Каталог</a></li>
                                         <li><a href="/contact">Контакты</a></li>
                                     </ul>
-                                </li>
-                                <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Пользователи<i
+                                </li>-->
+                                <!--<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Пользователи<i
                                         class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="/users">Клиенты</a></li>
                                         <li><a href="/admins">Администраторы</a></li>
                                     </ul>
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>

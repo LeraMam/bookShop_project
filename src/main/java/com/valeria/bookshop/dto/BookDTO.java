@@ -10,7 +10,7 @@ public class BookDTO {
     private String name;
     private String image;
     private double price;
-    private Integer publishYear;
+    private String publishYear;
     private List<AuthorDTO> authors;
     private PublisherDTO publisher;
     private List<CategoryDTO> categories;

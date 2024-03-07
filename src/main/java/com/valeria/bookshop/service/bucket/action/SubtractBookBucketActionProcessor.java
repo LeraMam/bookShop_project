@@ -26,7 +26,7 @@ public class SubtractBookBucketActionProcessor implements BucketActionProcessor 
                 .stream()
                 .filter(bookInBucketEntity -> Objects.equals(bookInBucketEntity.getBook().getId(), request.bookId()))
                 .findFirst()
-                .orElseThrow(() -> new BadRequestException("Книги нет в корзине"));
+                .orElseThrow(() -> new BadRequestException("Товара нет в корзине"));
         if(bookInBucket.getBookCount() > 1) {
             bookInBucket.setBookCount(bookInBucket.getBookCount() - 1);
         }
