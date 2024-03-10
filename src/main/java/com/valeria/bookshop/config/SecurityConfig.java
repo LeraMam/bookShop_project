@@ -25,7 +25,7 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
         /*http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                 .requestMatchers(HttpMethod.GET, "/api/category").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/author").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/publisher").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/group").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/meta/years").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/book").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/meta/price").permitAll()
@@ -101,7 +101,7 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
                 .requestMatchers(HttpMethod.GET, "/fonts/**")
                 .requestMatchers(HttpMethod.GET, "/api/category")
                 .requestMatchers(HttpMethod.GET, "/api/author")
-                .requestMatchers(HttpMethod.GET, "/api/publisher")
+                .requestMatchers(HttpMethod.GET, "/api/group")
                 .requestMatchers(HttpMethod.GET, "/api/meta/years")
                 .requestMatchers(HttpMethod.GET, "/api/book")
                 .requestMatchers(HttpMethod.GET, "/api/meta/price");*/

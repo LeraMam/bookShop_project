@@ -1,11 +1,11 @@
 package com.valeria.bookshop.service.bucket.action;
 
-import com.valeria.bookshop.db.entity.BookInBucketEntity;
+import com.valeria.bookshop.db.entity.ItemInBucketEntity;
 import com.valeria.bookshop.db.entity.BucketEntity;
 import com.valeria.bookshop.db.repository.BucketRepository;
 import com.valeria.bookshop.exception.BadRequestException;
 import com.valeria.bookshop.request.BucketActionRequest;
-import com.valeria.bookshop.service.BookService;
+import com.valeria.bookshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AppendBookBucketActionProcessor implements BucketActionProcessor {
     private final BucketRepository bucketRepository;
-    private final BookService bookService;
+    private final ItemService itemService;
 
     @Override
     public BucketAction bucketAction() {
@@ -24,17 +24,17 @@ public class AppendBookBucketActionProcessor implements BucketActionProcessor {
 
     @Override
     public void process(BucketEntity bucketEntity, BucketActionRequest request) {
-        bucketEntity.getBooks()
+        bucketEntity.getItems()
                 .stream()
-                .filter(bookInBucketEntity -> Objects.equals(bookInBucketEntity.getBook().getId(), request.bookId()))
+                .filter(bookInBucketEntity -> Objects.equals(bookInBucketEntity.getItem().getId(), request.bookId()))
                 .findFirst()
                 .ifPresent(bookInBucketEntity -> {
                     throw new BadRequestException("Товар уже добавлен в корзину");
                 });
-        BookInBucketEntity bookInBucketEntity = new BookInBucketEntity();
-        bookInBucketEntity.setBook(bookService.findEntityById(request.bookId()));
-        bookInBucketEntity.setBookCount(1);
-        bucketEntity.getBooks().add(bookInBucketEntity);
+        ItemInBucketEntity itemInBucketEntity = new ItemInBucketEntity();
+        itemInBucketEntity.setItem(itemService.findEntityById(request.bookId()));
+        itemInBucketEntity.setItemCount(1);
+        bucketEntity.getItems().add(itemInBucketEntity);
         bucketRepository.save(bucketEntity);
     }
 }

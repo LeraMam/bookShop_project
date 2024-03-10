@@ -42,8 +42,10 @@ public class BucketController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("")
     public BucketDTO getCurrentBucket() {
+        System.out.println(bucketService.getCurrentBucket());
         return bucketService.getCurrentBucket();
     }
+
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/all")
     public List<BucketDTO> getAllBucketsForUser() {

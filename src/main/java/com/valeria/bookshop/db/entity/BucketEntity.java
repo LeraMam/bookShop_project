@@ -28,7 +28,7 @@ public class BucketEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<BookInBucketEntity> books;
+    private List<ItemInBucketEntity> items;
     @Enumerated(EnumType.STRING)
     private BucketState state;
     @OneToOne(cascade = CascadeType.ALL)

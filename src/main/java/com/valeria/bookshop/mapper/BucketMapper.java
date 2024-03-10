@@ -8,7 +8,7 @@ import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = BookInBucketMapper.class)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = ItemInBucketMapper.class)
 public interface BucketMapper {
     @Mapping(target = "orderId", source = "id")
     BucketDTO mapToDTO(BucketEntity entity);

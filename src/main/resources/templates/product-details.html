@@ -12,16 +12,16 @@
                 // console.log(book.id);
                 $('#image').attr('src', book.image)
                 $('#name').text(book.name)
-                $('#authors').append('<b>Бренд: </b>', book.authors.map(a=>a.name).join(', '))
+                $('#brands').append('<b>Бренд: </b>', book.brands.map(a=>a.name).join(', '))
                 $('#categories').append('<b>Категории: </b>', book.categories.map(a=>a.name).join(', '))
-                $('#year').append('<b>Страна производства: </b>', book.publishYear)
-                $('#publisher').append('<b>Целевая группа покупателей: </b>', book.publisher.name)
+                $('#country').append('<b>Страна производства: </b>', book.publishYear)
+                $('#group').append('<b>Целевая группа покупателей: </b>', book.group.name)
                 $('#price').append(book.price+' Р')
 
                 $('#AddToCart').click(() => {
                     console.log('ID:', book.id);
                     ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_BOOK'},
-                        () => showMessage("Книга добавлена в корзину", 1000))
+                        () => showMessage("Товар добавлен в корзину", 1000))
                 })
             })
             console.log()
@@ -51,10 +51,10 @@
                                         В корзину
                                     </button>
 							</span>
-                            <p id="authors"></p>
+                            <p id="brands"></p>
                             <p id="categories"></p>
-                            <p id="year"></p>
-                            <p id="publisher"></p>
+                            <p id="country"></p>
+                            <p id="group"></p>
                         </div>
                     </div>
                 </div>

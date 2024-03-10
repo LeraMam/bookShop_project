@@ -231,8 +231,8 @@ a#scrollUp i{
 }
 
 .dropdown-menu  li  a:hover, .dropdown-menu  li  a:focus { /* не используется?*/
-  background-color: #E8B7D4;
-  color: #A5678E;
+  background-color: #7C976C;
+  color: #1C3D12;
   font-family: 'Roboto', sans-serif;
   text-decoration: none;
 }

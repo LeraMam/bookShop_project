@@ -1,4 +1,4 @@
-create table if not exists author_entity
+create table if not exists brand_entity
 (
     id   bigint auto_increment
         primary key,
@@ -25,14 +25,14 @@ create table  if not exists delivery_entity
     zip    varchar(255) null
 );
 
-create table  if not exists publisher_entity
+create table  if not exists group_entity
 (
     id   bigint auto_increment
         primary key,
     name varchar(255) null
 );
 
-create table  if not exists book_entity
+create table  if not exists item_entity
 (
     id           bigint auto_increment
         primary key,
@@ -40,39 +40,39 @@ create table  if not exists book_entity
     name         varchar(255) null,
     price        double       not null,
     publish_year varchar(255)          null,
-    publisher_id bigint       null,
+    group_id bigint       null,
     constraint FKbxob2ku1fl0q5sxp5n1h1dswn
-        foreign key (publisher_id) references publisher_entity (id)
+        foreign key (group_id) references group_entity (id)
 );
 
-create table  if not exists book_entity_authors
+create table  if not exists item_entity_brands
 (
-    book_entity_id bigint not null,
-    authors_id     bigint not null,
+    item_entity_id bigint not null,
+    brands_id     bigint not null,
     constraint FKlbiokaxometja0e50hd4m3tib
-        foreign key (book_entity_id) references book_entity (id),
+        foreign key (item_entity_id) references item_entity (id),
     constraint FKle8rxdux9o2denf8dghuojgcc
-        foreign key (authors_id) references author_entity (id)
+        foreign key (brands_id) references brand_entity (id)
 );
 
-create table  if not exists book_entity_categories
+create table  if not exists item_entity_categories
 (
-    book_entity_id bigint not null,
+    item_entity_id bigint not null,
     categories_id  bigint not null,
     constraint FKp8w1n9k4tnsj7r8eysu7aappq
-        foreign key (book_entity_id) references book_entity (id),
+        foreign key (item_entity_id) references item_entity (id),
     constraint FKr2n71nfs1rcx5bmf48jiai6qo
         foreign key (categories_id) references category_entity (id)
 );
 
-create table  if not exists book_in_bucket_entity
+create table  if not exists item_in_bucket_entity
 (
     id         bigint auto_increment
         primary key,
-    book_count int    null,
-    book_id    bigint null,
+    item_count int    null,
+    item_id    bigint null,
     constraint FKgtmn1ky98mqdt97a3n7naqflv
-        foreign key (book_id) references book_entity (id)
+        foreign key (item_id) references item_entity (id)
 );
 
 create table  if not exists user_entity
@@ -101,12 +101,12 @@ create table  if not exists bucket_entity
         foreign key (user_entity_id) references user_entity (id)
 );
 
-create table  if not exists bucket_entity_books
+create table  if not exists bucket_entity_items
 (
     bucket_entity_id bigint not null,
-    books_id         bigint not null,
+    items_id         bigint not null,
     constraint FKnq51q1jlcqxihox9m63k3gxa8
-        foreign key (books_id) references book_in_bucket_entity (id),
+        foreign key (items_id) references item_in_bucket_entity (id),
     constraint FKsskwlwfslijkcaa4grkl1d7o5
         foreign key (bucket_entity_id) references bucket_entity (id)
 );

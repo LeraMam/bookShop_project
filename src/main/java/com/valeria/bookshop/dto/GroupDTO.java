@@ -3,7 +3,7 @@ package com.valeria.bookshop.dto;
 import lombok.Data;
 
 @Data
-public class PublisherDTO {
+public class GroupDTO {
     private Long id;
     private String name;
 }

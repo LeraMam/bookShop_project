@@ -384,77 +384,77 @@ function readImage(inputElement) {
     return deferred.promise();
 }
 
-const openBookModal = (book = null, submitAction = (book) => {
+const openItemModal = (book = null, submitAction = (book) => {
 }) => {
     console.log('С сервера приходит это: ');
     console.log(book);
 
     if (!book) {
-        $('#bookModalBookImage').prop('required', true)
-        $('#bookModalLabel').text('Добавить товар')
+        $('#itemModalItemImage').prop('required', true)
+        $('#itemModalLabel').text('Добавить товар')
     } else {
-        $('#bookModalBookImage').prop('required', false)
-        $('#bookModalLabel').text('Изменить товар: ' + book.name)
+        $('#itemModalItemImage').prop('required', false)
+        $('#itemModalLabel').text('Изменить товар: ' + book.name)
     }
     book = book ? book : {};
 
     ajaxGET('/api/meta', data => {
         $('#imagePreview').attr('src', book.image);
-        $('#bookModalBookName').val(book.name);
+        $('#itemModalItemName').val(book.name);
 
-        $('#bookModalAuthorsSelect').empty();
-        data.authors.forEach(author => {
-            if (book && book.authors && book.authors.filter(a => author.id === a.id).length===1) {
-                $('#bookModalAuthorsSelect').append('<option value="' + author.id + '" selected>' + author.name + '</option>');
+        $('#itemModalBrandSelect').empty();
+        data.brands.forEach(brand => {
+            if (book && book.brands && book.brands.filter(a => brand.id === a.id).length===1) {
+                $('#itemModalBrandSelect').append('<option value="' + brand.id + '" selected>' + brand.name + '</option>');
             } else {
-                $('#bookModalAuthorsSelect').append('<option value="' + author.id + '">' + author.name + '</option>');
+                $('#itemModalBrandSelect').append('<option value="' + brand.id + '">' + brand.name + '</option>');
             }
         })
         //$('#bookModalAuthorsSelect').val(book.authors);
-        $('#bookModalAuthorsSelect').selectpicker("refresh");
+        $('#itemModalBrandSelect').selectpicker("refresh");
 
-        $('#bookModalCategorySelect').empty();
+        $('#itemModalCategorySelect').empty();
         data.categories.forEach(category => {
             if (book && book.categories && book.categories.filter(c => category.id === c.id).length===1) {
-                $('#bookModalCategorySelect').append('<option value="' + category.id + '" selected>' + category.name + '</option>');
+                $('#itemModalCategorySelect').append('<option value="' + category.id + '" selected>' + category.name + '</option>');
             } else {
-                $('#bookModalCategorySelect').append('<option value="' + category.id + '">' + category.name + '</option>');
+                $('#itemModalCategorySelect').append('<option value="' + category.id + '">' + category.name + '</option>');
             }
         })
         //$('#bookModalCategorySelect').val(book.categories);
-        $('#bookModalCategorySelect').selectpicker("refresh");
+        $('#itemModalCategorySelect').selectpicker("refresh");
 
-        $('#bookModalPublisherSelect').empty();
-        data.publishers.forEach(publisher => {
-
-            $('#bookModalPublisherSelect').append('<option ' + (book.publisher && publisher.id === book.publisher.id ? 'selected' : '') + ' value="' + publisher.id + '">' + publisher.name + '</option>');
+        $('#itemModalGroupSelect').empty();
+        data.groups.forEach(group => {
+            $('#itemModalGroupSelect').append('<option ' + (book.group && group.id === book.group.id ? 'selected' : '')
+                + ' value="' + group.id + '">' + group.name + '</option>');
         })
-        $('#bookModalPublisherSelect').selectpicker("refresh");
+        $('#itemModalGroupSelect').selectpicker("refresh");
 
-        $('#bookModalBookYear').val(book.publishYear);
-        $('#bookModalBookPriceRub').val(book.price);
+        $('#itemModalCountry').val(book.publishYear);
+        $('#itemModalItemPriceRub').val(book.price);
 
-        $('#bookModal').modal('show')
+        $('#itemModal').modal('show')
     })
 
-    $('#bookForm').submit((event) => {
+    $('#itemForm').submit((event) => {
         event.preventDefault();
-        readImage($('#bookModalBookImage')).done(base64Data => {
+        readImage($('#itemModalItemImage')).done(base64Data => {
             if (base64Data) {
                 $('#imagePreview').attr('src', base64Data)
                 book.image = base64Data;
             }
-            book.name = $('#bookModalBookName').val();
-            book.price = Number.parseFloat($('#bookModalBookPriceRub').val());
-            book.authors = extractSelectedItems('bookModalAuthorsSelect'); //читаем выбранные элементы
-            book.categories = extractSelectedItems('bookModalCategorySelect');
-            book.publisher = extractSingleSelectedItem('bookModalPublisherSelect');//читаем выбранный элемент
+            book.name = $('#itemModalItemName').val();
+            book.price = Number.parseFloat($('#itemModalItemPriceRub').val());
+            book.brands = extractSelectedItems('itemModalBrandSelect'); //читаем выбранные элементы
+            book.categories = extractSelectedItems('itemModalCategorySelect');
+            book.group = extractSingleSelectedItem('itemModalGroupSelect');//читаем выбранный элемент
             //book.publishYear = Number.parseInt($('#bookModalBookYear').val());
-            book.publishYear = $('#bookModalBookYear').val();
+            book.publishYear = $('#itemModalCountry').val();
 
             submitAction(book)
             console.log(book);
-            $('#bookModal').modal('hide');
+            $('#itemModal').modal('hide');
         });
     })
 }
@@ -464,9 +464,7 @@ const reloadBooks = () => {
         $('#books').empty();
         if (books.length == 0) {
             const message = $('<p id="message" class="text-center">Ничего не найдено</p>')
-            const nothing_found = $('<img src="../../images/sad_cat.jpg">')
             $('#books').append(message)
-            $('#books').append(nothing_found)
         }
         else{
             books.forEach(book => {
@@ -495,7 +493,7 @@ const reloadBooks = () => {
                 const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
                     'fa-wrench"></i>Изменить товар</a></li></ul>')
                 ul2.click(() => {
-                    openBookModal(book, (updatedBook) => {
+                    openItemModal(book, (updatedBook) => {
                         ajaxPUT('/api/book/' + updatedBook.id, updatedBook, () => {
                             showMessage('Товар изменен', 1000, () => {
                                 reloadBooks();
@@ -540,7 +538,7 @@ $(document).ready(() => {
     }
 
     $('#createBookBtn').click(() => {
-        openBookModal(null, (book) => {
+        openItemModal(null, (book) => {
             ajaxPOST('/api/book', book, () => {
                 showMessage("Товар создан", 1000, () => {
                     reloadBooks();
@@ -571,5 +569,5 @@ $(document).ready(() => {
     fillSearchParams() //каждый раз заполняем при перезагрузке страницы
     $('#search_search').val(searchParams.searchByName)// и парсим в форму имя при перезагрузке если оно есть, чтоб не терялось
 
-    $("#bookModal").on('hide.bs.modal', () => $('#bookForm').unbind('submit'));
+    $("#itemModal").on('hide.bs.modal', () => $('#itemForm').unbind('submit'));
 })

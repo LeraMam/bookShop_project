@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class BucketDTO {
     private Long orderId;
-    private List<BookInBucketDTO> books;
+    private List<ItemInBucketDTO> items;
     private BucketState state;
     private DeliveryEntity delivery;
 }

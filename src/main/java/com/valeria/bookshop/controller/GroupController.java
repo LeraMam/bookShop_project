@@ -1,8 +1,8 @@
 package com.valeria.bookshop.controller;
 
-import com.valeria.bookshop.dto.PublisherDTO;
-import com.valeria.bookshop.request.CreateOrUpdatePublisherRequest;
-import com.valeria.bookshop.service.PublisherService;
+import com.valeria.bookshop.dto.GroupDTO;
+import com.valeria.bookshop.request.CreateOrUpdateGroupRequest;
+import com.valeria.bookshop.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,33 +18,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/publisher")
-public class PublisherController {
-    private final PublisherService publisherService;
+public class GroupController {
+    private final GroupService groupService;
 
     @Autowired
-    public PublisherController(PublisherService publisherService) {
-        this.publisherService = publisherService;
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
     }
 
     @GetMapping()
-    public List<PublisherDTO> getAllAuthors() {
-        return publisherService.getAllPublishers();
+    public List<GroupDTO> getAllGroups() {
+        return groupService.getAllGroups();
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
-    public PublisherDTO addNewPublisher(@RequestBody CreateOrUpdatePublisherRequest request){
-        return publisherService.addNewPublisher(request);
+    public GroupDTO addNewGroup(@RequestBody CreateOrUpdateGroupRequest request){
+        return groupService.addNewGroup(request);
     }
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping(path="{id}")
-    public void deletePublisher(@PathVariable Long id){
-        publisherService.deletePublisher(id);
+    public void deleteGroup(@PathVariable Long id){
+        groupService.deleteGroup(id);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping(path= "{id}")
-    public PublisherDTO updatePublisher(@PathVariable Long id, @RequestBody CreateOrUpdatePublisherRequest request){
-        return publisherService.updatePublisher(id, request);
+    public GroupDTO updateGroup(@PathVariable Long id, @RequestBody CreateOrUpdateGroupRequest request){
+        return groupService.updateGroup(id, request);
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class BookEntity {
+public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +24,10 @@ public class BookEntity {
     private String publishYear;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<AuthorEntity> authors = new ArrayList<>();
+    private List<BrandEntity> brands = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private PublisherEntity publisher;
+    private GroupEntity group;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<CategoryEntity> categories = new ArrayList<>();

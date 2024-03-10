@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class BookInBucketEntity {
+public class ItemInBucketEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class BookInBucketEntity {
     @EqualsAndHashCode.Exclude
     @OneToOne
     //@JoinColumn(name = "book_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
-    private BookEntity book;
+    private ItemEntity item;
 
-    private Integer bookCount;
+    private Integer itemCount;
 }

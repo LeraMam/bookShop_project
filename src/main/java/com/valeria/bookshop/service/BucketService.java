@@ -27,7 +27,7 @@ import java.util.Map;
 public class BucketService {
     private final UserService userService;
     private final BucketRepository bucketRepository;
-    private final BookService bookService;
+    private final ItemService itemService;
     private final DeliveryRepository deliveryRepository;
     private final BucketMapper bucketMapper;
     private final Map<BucketAction, BucketActionProcessor> bucketActionProcessorMap;
@@ -40,7 +40,7 @@ public class BucketService {
     public void submitBucket(DeliveryEntity deliveryEntity) {
         BucketEntity bucketEntity = getOrCreateBucketEntity();
         bucketEntity.setDelivery(deliveryEntity);
-        if (bucketEntity.getBooks().isEmpty()) throw new BadRequestException("Корзина пуста");
+        if (bucketEntity.getItems().isEmpty()) throw new BadRequestException("Корзина пуста");
         bucketEntity.setState(BucketState.SUBMITTED);
         bucketRepository.save(bucketEntity);
     }
@@ -69,10 +69,10 @@ public class BucketService {
                 .orElseGet(() -> {
                     BucketEntity newBucket = new BucketEntity();
                     newBucket.setState(BucketState.OPEN);
-                    newBucket.setBooks(new ArrayList<>());
+                    newBucket.setItems(new ArrayList<>());
                     newBucket.setUserEntity(user);
                     return bucketRepository.save(newBucket);
-                });
+                } );
     }
 
     public void deleteOrder(Long orderId) {
