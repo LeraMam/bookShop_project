@@ -4,99 +4,26 @@
     <meta charset="UTF-8">
     <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
     <script>
-        /*
-            const createCartItem = (filledOrderBook) => {
-                console.log(filledOrderBook.id)
-                const tr = $('<tr></tr>')
-                const td1 = $('<td class="cart_product"> <a><img src="' + filledOrderBook.image + '" alt="" height=50px></a></td>')
-                const td2 = $('<td class="cart_description"><h4><a href="">' + filledOrderBook.name + '</a></h4></td>')
-                const td3 = $('<td class="cart_price"><p>' + filledOrderBook.price + '</p></td>')
-                const td4 = $('<td class="cart_quantity"></td>')
-
-                const td4_div = $('<div class="cart_quantity_button"></div>')
-                const td4_div_a1 = $('<a class="cart_quantity_up"> + </a>')
-                td4_div_a1.click(() => ajaxPOSTWithoutResponse('/api/order', {
-                    bookId: filledOrderBook.id,
-                    action: 'ADD_BOOK'
-                }, () => {
-                    reloadCart()
-                }))
-                const td4_div_input = $('<input class="cart_quantity_input" type="text" name="quantity" value="' + filledOrderBook.bookCount + '" autocomplete="off" size="2" disabled>')
-                const td4_div_a2 = $('<a class="cart_quantity_down"> - </a>')
-                td4_div_a2.click(() => ajaxPOSTWithoutResponse('/api/order', {
-                    bookId: filledOrderBook.id,
-                    action: 'SUBTRACT_BOOK'
-                }, () => {
-                    reloadCart()
-                }))
-                td4_div.append(td4_div_a1, td4_div_input, td4_div_a2)
-                td4.append(td4_div)
-
-                const td5 = $('<td class="cart_total"><p class="cart_total_price">' + (filledOrderBook.bookCount * filledOrderBook.price).toFixed(2) + '</p></td>')
-                const td6 = $('<td class="cart_delete"><a class="cart_quantity_delete"><i class="fa fa-times"></i></a></td>')
-                td6.click(() => ajaxPOSTWithoutResponse('/api/order', {
-                    bookId: filledOrderBook.id,
-                    action: 'DELETE_BOOK'
-                }, () => {
-                    reloadCart()
-                }))
-
-                tr.append(td1, td2, td3, td4, td5, td6)
-
-                return tr;
-            }
-
-            const reloadCart = () => {
-                ajaxGET('/api/order/cart', (filledOrderBooks => {
-                    const cartTableBody = $('#cartTableBody');
-                    cartTableBody.empty();
-                    filledOrderBooks.forEach(filledOrderBook => cartTableBody.append(createCartItem(filledOrderBook)))
-
-                    const trTotal = $('<tr> <td colspan="4">&nbsp;</td> <td colspan="2"><table class="table table-condensed total-result"> <tr> <td>Total</td> <td><span>' +
-                        filledOrderBooks.reduce((acc, obj) => acc + (obj.bookCount * obj.price), 0)
-                        + ' P</span></td> </tr></table></td></tr>')
-                    cartTableBody.append(trTotal)
-
-                    $('#do_action').attr("hidden", filledOrderBooks.length === 0);
-                }))
-            }
-
-            $(document).ready(() => {
-                reloadCart();
-
-                $('#addressForm').submit(event => {
-                    event.preventDefault();
-                    const body = {};
-                    console.log($('#addressForm').serializeArray())
-                    $.each($('#addressForm').serializeArray(), (i, field) => {
-                        body[field.name] = field.value;
-                    })
-
-                    ajaxPOSTWithoutResponse('/api/order/submit', body, () => {
-                        //window.location.href = '/catalog'
-                    })
-                });
-            });*/
-        const createBookItemStr = (book) => {
+        const createBookItemStr = (items) => {
             return `
                 <tr>
                     <td class="cart_product"><a><img
-                                    src="${book.image}"
+                                    src="${items.image}"
                                     alt="" height="50px"></a></td>
-                    <td class="cart_description"><h4><a>${book.name}</a></h4></td>
-                    <td class="cart_price"><p>${book.price}</p></td>
+                    <td class="cart_description"><h4><a>${items.name}</a></h4></td>
+                    <td class="cart_price"><p>${items.price}</p></td>
                     <td class="cart_quantity">
                         <div class="cart_quantity_button">
-                            <input class="cart_quantity_input"  type="text" name="quantity" value="${book.itemCount}" autocomplete="off" size="2" disabled>
+                            <input class="cart_quantity_input"  type="text" name="quantity" value="${items.itemCount}" autocomplete="off" size="2" disabled>
                         </div>
                     </td>
-                    <td class="cart_total"><p class="cart_total_price">${book.price * book.itemCount}</p></td>
+                    <td class="cart_total"><p class="cart_total_price">${items.price * items.itemCount}</p></td>
                 </tr>
         `
         }
 
 
-        const createBookItemsSectionStr = (books) => {
+        const createBookItemsSectionStr = (items) => {
             return `
             <section id="cart_items">
                 <div class="container">
@@ -112,7 +39,7 @@
                             </tr>
                             </thead>
                             <tbody id="cartTableBody">
-                                ${books.map(createBookItemStr).join('')}
+                                ${items.map(createBookItemStr).join('')}
                             </tbody>
                         </table>
                     </div>

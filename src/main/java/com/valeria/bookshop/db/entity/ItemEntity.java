@@ -21,7 +21,7 @@ public class ItemEntity {
     @Column(columnDefinition = "longtext")
     private String image;
     private double price;
-    private String publishYear;
+    private String country;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<BrandEntity> brands = new ArrayList<>();

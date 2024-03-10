@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
     <script>
-        const createBookItemStr = (book) => {
+        const createBookItemStr = (items) => {
             return `
                 <tr>
-                    <td class="cart_product"><a><img src="${book.image}" alt="" height="50px"></a></td>
-                    <td class="cart_description"><h4><a>${book.name}</a></h4></td>
-                    <td class="cart_price"><p>${book.price}</p></td>
+                    <td class="cart_product"><a><img src="${items.image}" alt="" height="50px"></a></td>
+                    <td class="cart_description"><h4><a>${items.name}</a></h4></td>
+                    <td class="cart_price"><p>${items.price}</p></td>
                     <td class="cart_quantity">
                         <div class="cart_quantity_button">
-                            <input class="cart_quantity_input"  type="text" name="quantity" value="${book.itemCount}" autocomplete="off" size="2" disabled>
+                            <input class="cart_quantity_input"  type="text" name="quantity" value="${items.itemCount}" autocomplete="off" size="2" disabled>
                         </div>
                     </td>
-                    <td class="cart_total"><p class="cart_total_price">${book.price * book.itemCount}</p></td>
+                    <td class="cart_total"><p class="cart_total_price">${items.price * items.itemCount}</p></td>
                 </tr>
         `
         }
 
-        const createBookItemsSectionStr = (books) => {
+        const createBookItemsSectionStr = (items) => {
             return `
             <section id="cart_items">
                 <div class="container">
@@ -36,7 +36,7 @@
                             </tr>
                             </thead>
                             <tbody id="cartTableBody">
-                                ${books.map(createBookItemStr).join('')}
+                                ${items.map(createBookItemStr).join('')}
                             </tbody>
                         </table>
                     </div>

@@ -10,7 +10,7 @@ $(document).ready(() => {
 
     const reloadBooks = ()=> {
         var bookCount = 0;
-        ajaxGET('/api/book', books => {
+        ajaxGET('/api/item', books => {
             console.log(books);
 
             $('#books').empty();
@@ -31,7 +31,7 @@ $(document).ready(() => {
                     const ul1 = $('<a class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>')
                     ul1.click(() => {
                         /*console.log('ID:', book_id);
-                        ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book_id, action: 'APPEND_BOOK'},
+                        ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book_id, action: 'APPEND_ITEM'},
                             () => showMessage("Книга добавлена в корзину", 1000))*/
                     })
     

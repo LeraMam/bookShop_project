@@ -29,7 +29,7 @@ public class MetaController {
                 "groups", groupService.getAllGroups());
     }
 
-    @GetMapping("/years")
+    @GetMapping("/country")
     Collection<String> getYears() {return itemRepository.findYearsDistinct();}
 
     @GetMapping("/price")

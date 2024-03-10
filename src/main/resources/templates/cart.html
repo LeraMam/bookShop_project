@@ -4,38 +4,38 @@
     <meta charset="UTF-8">
     <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
     <script>
-        const createBucketItem = (filledOrderBook) => {
-            console.log(filledOrderBook.id)
+        const createBucketItem = (filledOrderItem) => {
+            console.log(filledOrderItem.id)
             const tr = $('<tr></tr>')
-            const td1 = $('<td class="cart_product"> <a><img src="' + filledOrderBook.image + '" alt="" height=50px></a></td>')
-            const td2 = $('<td class="cart_description"><h4><a href="">' + filledOrderBook.name + '</a></h4></td>')
-            const td3 = $('<td class="cart_price"><p>' + filledOrderBook.price + '</p></td>')
+            const td1 = $('<td class="cart_product"> <a><img src="' + filledOrderItem.image + '" alt="" height=50px></a></td>')
+            const td2 = $('<td class="cart_description"><h4><a href="">' + filledOrderItem.name + '</a></h4></td>')
+            const td3 = $('<td class="cart_price"><p>' + filledOrderItem.price + '</p></td>')
             const td4 = $('<td class="cart_quantity"></td>')
 
             const td4_div = $('<div class="cart_quantity_button"></div>')
             const td4_div_a1 = $('<a class="cart_quantity_up"> + </a>')
             td4_div_a1.click(() => ajaxPOSTWithoutResponse('/api/bucket/action', {
-                bookId: filledOrderBook.id,
-                action: 'ADD_BOOK'
+                bookId: filledOrderItem.id,
+                action: 'ADD_ITEM'
             }, () => {
                 reloadCart()
             }))
-            const td4_div_input = $('<input class="cart_quantity_input" type="text" name="quantity" value="' + filledOrderBook.itemCount + '" autocomplete="off" size="2" disabled>')
+            const td4_div_input = $('<input class="cart_quantity_input" type="text" name="quantity" value="' + filledOrderItem.itemCount + '" autocomplete="off" size="2" disabled>')
             const td4_div_a2 = $('<a class="cart_quantity_down"> - </a>')
             td4_div_a2.click(() => ajaxPOSTWithoutResponse('/api/bucket/action', {
-                bookId: filledOrderBook.id,
-                action: 'SUBTRACT_BOOK'
+                bookId: filledOrderItem.id,
+                action: 'SUBTRACT_ITEM'
             }, () => {
                 reloadCart()
             }))
             td4_div.append(td4_div_a1, td4_div_input, td4_div_a2)
             td4.append(td4_div)
 
-            const td5 = $('<td class="cart_total"><p class="cart_total_price">' + (filledOrderBook.itemCount * filledOrderBook.price).toFixed(2) + '</p></td>')
+            const td5 = $('<td class="cart_total"><p class="cart_total_price">' + (filledOrderItem.itemCount * filledOrderItem.price).toFixed(2) + '</p></td>')
             const td6 = $('<td class="cart_delete"><a class="cart_quantity_delete"><i class="fa fa-times"></i></a></td>')
             td6.click(() => ajaxPOSTWithoutResponse('/api/bucket/action', {
-                bookId: filledOrderBook.id,
-                action: 'DELETE_BOOK'
+                bookId: filledOrderItem.id,
+                action: 'DELETE_ITEM'
             }, () => {
                 reloadCart()
             }))

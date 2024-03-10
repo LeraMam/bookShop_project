@@ -57,27 +57,27 @@ const filterItemsConfig = { //создаем характеристики эле
         toViewItemModelMapper: (category) => {
             return {id: category.id, name: category.name}
         }
-    }, authors: {
-        queryName: 'author',
-        baseUrl: '/api/author',
-        listHolderId: 'authors',
-        toViewItemModelMapper: (author) => {
-            return {id: author.id, name: author.name}
+    }, brands: {
+        queryName: 'brand',
+        baseUrl: '/api/brand',
+        listHolderId: 'brands',
+        toViewItemModelMapper: (brand) => {
+            return {id: brand.id, name: brand.name}
         }
-    }, publishers: {
-        queryName: 'publisher',
-        baseUrl: '/api/publisher',
-        listHolderId: 'publishers',
-        toViewItemModelMapper: (publisher) => {
-            return {id: publisher.id, name: publisher.name}
+    }, groups: {
+        queryName: 'group',
+        baseUrl: '/api/group',
+        listHolderId: 'groups',
+        toViewItemModelMapper: (group) => {
+            return {id: group.id, name: group.name}
         }
-    }, years: {
-        queryName: 'year',
-        baseUrl: '/api/meta/years',
-        listHolderId: 'years',
-        toViewItemModelMapper: (year) => {
-            year = '' + year;
-            return {id: year, name: year}
+    }, country: {
+        queryName: 'country',
+        baseUrl: '/api/meta/country',
+        listHolderId: 'country',
+        toViewItemModelMapper: (country) => {
+            country = '' + country;
+            return {id: country, name: country}
         }
     },
 }
@@ -96,9 +96,9 @@ const updateFilterItemsList = (conf) => { //берем данные катего
 const searchParams = { //для фильтрации и поиска
     searchByName: undefined,
     category: new Set(),
-    author: new Set(),
-    publisher: new Set(),
-    year: new Set(),
+    brand: new Set(),
+    group: new Set(),
+    country: new Set(),
     priceMin: undefined,
     priceMax: undefined
 }
@@ -106,9 +106,9 @@ const searchParams = { //для фильтрации и поиска
 const resetSearch = () => { //очистка поиска и фильтрации на фронте
     searchParams.searchByName = undefined;
     searchParams.category = new Set();
-    searchParams.author = new Set();
-    searchParams.publisher = new Set();
-    searchParams.year = new Set();
+    searchParams.brand = new Set();
+    searchParams.group = new Set();
+    searchParams.country = new Set();
     searchParams.priceMin = undefined;
     searchParams.priceMax = undefined;
 
@@ -168,9 +168,9 @@ const fillSearchParams = () => { //заполняем данные для фил
     const urlParams = new URLSearchParams(window.location.search);
     searchParams.searchByName = urlParams.get('search');
     searchParams.category = new Set(urlParams.getAll('category').map(v=>parseInt(v)))
-    searchParams.author = new Set(urlParams.getAll('author').map(v=>parseInt(v)))
-    searchParams.publisher = new Set(urlParams.getAll('publisher').map(v=>parseInt(v)))
-    searchParams.year = new Set(urlParams.getAll('year'))
+    searchParams.brand = new Set(urlParams.getAll('brand').map(v=>parseInt(v)))
+    searchParams.group = new Set(urlParams.getAll('group').map(v=>parseInt(v)))
+    searchParams.country = new Set(urlParams.getAll('country'))
     searchParams.priceMin = parseFloat(urlParams.get('priceMin'))
     searchParams.priceMax = parseFloat(urlParams.get('priceMax'))
 
@@ -202,13 +202,11 @@ function readImage(inputElement) {
 }
 
 const reloadBooks = () => {
-    ajaxGET('/api/book?' + new URLSearchParams(window.location.search), books => {
-        $('#books').empty();
+    ajaxGET('/api/item?' + new URLSearchParams(window.location.search), books => {
+        $('#items').empty();
         if (books.length == 0) {
             const message = $('<p id="message" class="text-center">Ничего не найдено</p>')
-            const nothing_found = $('<img src="../../images/sad_cat.jpg">')
-            $('#books').append(message)
-            $('#books').append(nothing_found)
+            $('#items').append(message)
         }
         else{
             books.forEach(book => {
@@ -223,13 +221,13 @@ const reloadBooks = () => {
                 const div3_2 = $('<div class="choose"></div>')
                 const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
                 ul1.click(() => {
-                    window.location.href = '/details?book=' + book.id;
+                    window.location.href = '/details?item=' + book.id;
                 })
                 const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
                     'fa-shopping-cart"></i>В корзину</a></li></ul>')
                 ul2.click(() => {
                     console.log('ID:', book.id);
-                    ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_BOOK'},
+                    ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_ITEM'},
                         () => showMessage("Товар добавлен в корзину", 1000))
                 })
                 div3_2.append(ul1, ul2)
@@ -242,11 +240,11 @@ const reloadBooks = () => {
                 div3_1.append(div4)
                 div4.append(img, price, name)
 
-                $('#books').append(div1)
+                $('#items').append(div1)
             })
         }
     })
-    updateFilterItemsList(filterItemsConfig.years)
+    updateFilterItemsList(filterItemsConfig.country)
     updatePriceRange()
 }
 

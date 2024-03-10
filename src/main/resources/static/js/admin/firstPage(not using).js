@@ -4,7 +4,7 @@ $(document).ready(() => {
 
     const reloadBooks = ()=> {
         var bookCount = 0;
-        ajaxGET('/api/book', books => {
+        ajaxGET('/api/item', books => {
             console.log(books);
 
             $('#books').empty();

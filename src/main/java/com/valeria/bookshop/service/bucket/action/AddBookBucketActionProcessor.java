@@ -19,7 +19,7 @@ public class AddBookBucketActionProcessor implements BucketActionProcessor {
 
     @Override
     public BucketAction bucketAction() {
-        return BucketAction.ADD_BOOK;
+        return BucketAction.ADD_ITEM;
     }
 
     @Override

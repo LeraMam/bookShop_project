@@ -21,7 +21,7 @@ public class ViewController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("pageTitle", name);
         modelAndView.addObject("uRole", userRole);
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("main(not using)");
         return modelAndView;
     }
 

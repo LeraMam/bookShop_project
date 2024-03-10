@@ -77,8 +77,8 @@
                                sec:authorize="hasRole('ROLE_ADMIN')"></i>
                         </h2>
                         <div class="brands-name">
-                            <ul id="authors" class="nav nav-pills nav-stacked">
-                                <!--имена авторов-->
+                            <ul id="brands" class="nav nav-pills nav-stacked">
+                                <!--названия брендов-->
                             </ul>
                         </div>
                         <br> <br>
@@ -89,8 +89,8 @@
                                sec:authorize="hasRole('ROLE_ADMIN')"></i>
                         </h2>
                         <div class="brands-name">
-                            <ul id="publishers" class="nav nav-pills nav-stacked">
-                                <!--издательства-->
+                            <ul id="groups" class="nav nav-pills nav-stacked">
+                                <!--группы пользователей-->
                             </ul>
                         </div>
                         <br> <br>
@@ -99,12 +99,11 @@
                     <div class="brands_products">
                         <h2>Страны</h2>
                         <div class="brands-name">
-                            <ul id="years" class="nav nav-pills nav-stacked">
-                                <!--года издания-->
+                            <ul id="country" class="nav nav-pills nav-stacked">
+                                <!--страны-->
                             </ul>
                         </div>
                     </div>
-
                     <div class="price-range"><!--price-range-->
                         <h2>Стоимость</h2>
                         <div class="well text-center">
@@ -117,7 +116,6 @@
                         </div>
                     </div>
                     <br>
-
                     <button id="clearFilterResults" onclick="resetSearch()" class="nav nav-pills nav-justified">Очистить фильтр</button>
                     <button id="showFilterResults" onclick="showFilterResults()" class="nav nav-pills nav-justified">Показать результаты</button>
                 </div>
@@ -128,11 +126,9 @@
                     <h2 class="title text-center">Товары
                         <i sec:authorize="hasRole('ROLE_ADMIN')" class="fa fa-plus-circle" id="createBookBtn" style="color: #7C976C"></i>
                     </h2>
-                    <div id="books">
-                        <!--книги-->
+                    <div id="items">
+                        <!--товары-->
                     </div>
-
-
                 </div>
             </div>
         </div>

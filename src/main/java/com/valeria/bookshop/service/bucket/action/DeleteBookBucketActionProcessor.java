@@ -19,7 +19,7 @@ public class DeleteBookBucketActionProcessor implements BucketActionProcessor {
 
     @Override
     public BucketAction bucketAction() {
-        return BucketAction.DELETE_BOOK;
+        return BucketAction.DELETE_ITEM;
     }
 
     @Override

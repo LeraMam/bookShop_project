@@ -24,10 +24,10 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
     public SecurityFilterChain filterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
         /*http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                 .requestMatchers(HttpMethod.GET, "/api/category").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/author").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/brand").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/group").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/meta/years").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/book").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/item").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/meta/price").permitAll()
                 .requestMatchers(HttpMethod.GET, "/catalog").permitAll()
                 .anyRequest().authenticated()
@@ -100,10 +100,10 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
                 .requestMatchers(HttpMethod.GET, "/images/**")
                 .requestMatchers(HttpMethod.GET, "/fonts/**")
                 .requestMatchers(HttpMethod.GET, "/api/category")
-                .requestMatchers(HttpMethod.GET, "/api/author")
+                .requestMatchers(HttpMethod.GET, "/api/brand")
                 .requestMatchers(HttpMethod.GET, "/api/group")
                 .requestMatchers(HttpMethod.GET, "/api/meta/years")
-                .requestMatchers(HttpMethod.GET, "/api/book")
+                .requestMatchers(HttpMethod.GET, "/api/item")
                 .requestMatchers(HttpMethod.GET, "/api/meta/price");*/
     }
 /*

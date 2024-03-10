@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/book")
+@RequestMapping("/api/item")
 public class ItemController {
     private final ItemService itemService;
 
@@ -35,9 +35,9 @@ public class ItemController {
     public List<ItemDTO> getAllItems(
             @RequestParam(value = "search", required = false) String search,
             @RequestParam(value = "category", required = false) List<Long> category,
-            @RequestParam(value = "author", required = false) List<Long> authors,
-            @RequestParam(value = "publisher", required = false) List<Long> publisher,
-            @RequestParam(value = "year", required = false) List<String> years,
+            @RequestParam(value = "brand", required = false) List<Long> authors,
+            @RequestParam(value = "group", required = false) List<Long> publisher,
+            @RequestParam(value = "country", required = false) List<String> years,
             @RequestParam(value = "priceMin", required = false) Double priceMin,
             @RequestParam(value = "priceMax", required = false) Double priceMax
     ) {
@@ -47,7 +47,7 @@ public class ItemController {
                 .filter(itemDTO -> CollectionUtils.isEmpty(category) || CollectionUtils.containsAny(category, itemDTO.getCategories().stream().map(CategoryDTO::getId).toList()))
                 .filter(itemDTO -> CollectionUtils.isEmpty(authors) || CollectionUtils.containsAny(authors, itemDTO.getBrands().stream().map(BrandDTO::getId).toList()))
                 .filter(itemDTO -> CollectionUtils.isEmpty(publisher) || CollectionUtils.containsInstance(publisher, itemDTO.getGroup().getId()))
-                .filter(itemDTO -> CollectionUtils.isEmpty(years) || years.contains(itemDTO.getPublishYear()))
+                .filter(itemDTO -> CollectionUtils.isEmpty(years) || years.contains(itemDTO.getCountry()))
                 .filter(itemDTO -> priceMin == null || itemDTO.getPrice() >= priceMin)
                 .filter(itemDTO -> priceMax == null || itemDTO.getPrice() <= priceMax)
                 .collect(Collectors.toList());

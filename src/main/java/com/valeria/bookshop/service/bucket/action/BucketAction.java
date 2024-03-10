@@ -1,5 +1,5 @@
 package com.valeria.bookshop.service.bucket.action;
 
 public enum BucketAction {
-    APPEND_BOOK, ADD_BOOK, SUBTRACT_BOOK, DELETE_BOOK
+    APPEND_ITEM, ADD_ITEM, SUBTRACT_ITEM, DELETE_ITEM
 }

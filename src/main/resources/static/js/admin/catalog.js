@@ -118,11 +118,11 @@ const filterItemsConfig = { //создаем характеристики эле
             //TODO count
             return {id: category.id, name: category.name}
         }
-    }, authors: {
-        queryName: 'author',
-        createBtnId: 'createAuthorBtn',
-        baseUrl: '/api/author',
-        listHolderId: 'authors',
+    }, brands: {
+        queryName: 'brand',
+        createBtnId: 'createBrandBtn',
+        baseUrl: '/api/brand',
+        listHolderId: 'brands',
         modalForm: {
             id: 'filterItemModal',
             modalHeaderId: 'filterItemModalHeader',
@@ -146,15 +146,15 @@ const filterItemsConfig = { //создаем характеристики эле
         deleteRequest: {
             successMessage: 'Бренд удален'
         },
-        toViewItemModelMapper: (author) => {
+        toViewItemModelMapper: (brand) => {
             //TODO count
-            return {id: author.id, name: author.name}
+            return {id: brand.id, name: brand.name}
         }
-    }, publishers: {
-        queryName: 'publisher',
-        createBtnId: 'createPublisherBtn',
-        baseUrl: '/api/publisher',
-        listHolderId: 'publishers',
+    }, groups: {
+        queryName: 'group',
+        createBtnId: 'createGroupBtn',
+        baseUrl: '/api/group',
+        listHolderId: 'groups',
         modalForm: {
             id: 'filterItemModal',
             modalHeaderId: 'filterItemModalHeader',
@@ -178,16 +178,16 @@ const filterItemsConfig = { //создаем характеристики эле
         deleteRequest: {
             successMessage: 'Группа удалена'
         },
-        toViewItemModelMapper: (publisher) => {
-            return {id: publisher.id, name: publisher.name}
+        toViewItemModelMapper: (group) => {
+            return {id: group.id, name: group.name}
         }
-    }, years: {
-        queryName: 'year',
-        baseUrl: '/api/meta/years',
-        listHolderId: 'years',
-        toViewItemModelMapper: (year) => {
-            year = '' + year;
-            return {id: year, name: year}
+    }, country: {
+        queryName: 'country',
+        baseUrl: '/api/meta/country',
+        listHolderId: 'country',
+        toViewItemModelMapper: (country) => {
+            country = '' + country;
+            return {id: country, name: country}
         }
     },
 }
@@ -258,9 +258,9 @@ const openModal = (settings) => { //всплывающее для редакта
 const searchParams = {//создаем элемент поиска
     searchByName: undefined,
     category: new Set(),
-    author: new Set(),
-    publisher: new Set(),
-    year: new Set(),
+    brand: new Set(),
+    group: new Set(),
+    country: new Set(),
     priceMin: undefined,
     priceMax: undefined
 }
@@ -268,9 +268,9 @@ const searchParams = {//создаем элемент поиска
 const resetSearch = () => { //очищаем элемент поиска
     searchParams.searchByName = undefined;
     searchParams.category = new Set();
-    searchParams.author = new Set();
-    searchParams.publisher = new Set();
-    searchParams.year = new Set();
+    searchParams.brand = new Set();
+    searchParams.group = new Set();
+    searchParams.country = new Set();
     searchParams.priceMin = undefined;
     searchParams.priceMax = undefined;
     showFilterResults() //выводим все книги
@@ -350,10 +350,11 @@ const showFilterResults = () => { //отправляем данные и пол�
 const fillSearchParams = () => { //заполняем данные для фильтрации
     const urlParams = new URLSearchParams(window.location.search);
     searchParams.searchByName = urlParams.get('search');
+
     searchParams.category = new Set(urlParams.getAll('category').map(v=>parseInt(v)))
-    searchParams.author = new Set(urlParams.getAll('author').map(v=>parseInt(v)))
-    searchParams.publisher = new Set(urlParams.getAll('publisher').map(v=>parseInt(v)))
-    searchParams.year = new Set(urlParams.getAll('year'))
+    searchParams.brand = new Set(urlParams.getAll('brand').map(v=>parseInt(v)))
+    searchParams.group = new Set(urlParams.getAll('group').map(v=>parseInt(v)))
+    searchParams.country = new Set(urlParams.getAll('country'))
     searchParams.priceMin = parseFloat(urlParams.get('priceMin'))
     searchParams.priceMax = parseFloat(urlParams.get('priceMax'))
 
@@ -384,27 +385,27 @@ function readImage(inputElement) {
     return deferred.promise();
 }
 
-const openItemModal = (book = null, submitAction = (book) => {
+const openItemModal = (item = null, submitAction = (item) => {
 }) => {
     console.log('С сервера приходит это: ');
-    console.log(book);
+    console.log(item);
 
-    if (!book) {
+    if (!item) {
         $('#itemModalItemImage').prop('required', true)
         $('#itemModalLabel').text('Добавить товар')
     } else {
         $('#itemModalItemImage').prop('required', false)
-        $('#itemModalLabel').text('Изменить товар: ' + book.name)
+        $('#itemModalLabel').text('Изменить товар: ' + item.name)
     }
-    book = book ? book : {};
+    item = item ? item : {};
 
     ajaxGET('/api/meta', data => {
-        $('#imagePreview').attr('src', book.image);
-        $('#itemModalItemName').val(book.name);
+        $('#imagePreview').attr('src', item.image);
+        $('#itemModalItemName').val(item.name);
 
         $('#itemModalBrandSelect').empty();
         data.brands.forEach(brand => {
-            if (book && book.brands && book.brands.filter(a => brand.id === a.id).length===1) {
+            if (item && item.brands && item.brands.filter(a => brand.id === a.id).length===1) {
                 $('#itemModalBrandSelect').append('<option value="' + brand.id + '" selected>' + brand.name + '</option>');
             } else {
                 $('#itemModalBrandSelect').append('<option value="' + brand.id + '">' + brand.name + '</option>');
@@ -415,7 +416,7 @@ const openItemModal = (book = null, submitAction = (book) => {
 
         $('#itemModalCategorySelect').empty();
         data.categories.forEach(category => {
-            if (book && book.categories && book.categories.filter(c => category.id === c.id).length===1) {
+            if (item && item.categories && item.categories.filter(c => category.id === c.id).length===1) {
                 $('#itemModalCategorySelect').append('<option value="' + category.id + '" selected>' + category.name + '</option>');
             } else {
                 $('#itemModalCategorySelect').append('<option value="' + category.id + '">' + category.name + '</option>');
@@ -426,13 +427,13 @@ const openItemModal = (book = null, submitAction = (book) => {
 
         $('#itemModalGroupSelect').empty();
         data.groups.forEach(group => {
-            $('#itemModalGroupSelect').append('<option ' + (book.group && group.id === book.group.id ? 'selected' : '')
+            $('#itemModalGroupSelect').append('<option ' + (item.group && group.id === item.group.id ? 'selected' : '')
                 + ' value="' + group.id + '">' + group.name + '</option>');
         })
         $('#itemModalGroupSelect').selectpicker("refresh");
 
-        $('#itemModalCountry').val(book.publishYear);
-        $('#itemModalItemPriceRub').val(book.price);
+        $('#itemModalCountry').val(item.country);
+        $('#itemModalItemPriceRub').val(item.price);
 
         $('#itemModal').modal('show')
     })
@@ -442,36 +443,36 @@ const openItemModal = (book = null, submitAction = (book) => {
         readImage($('#itemModalItemImage')).done(base64Data => {
             if (base64Data) {
                 $('#imagePreview').attr('src', base64Data)
-                book.image = base64Data;
+                item.image = base64Data;
             }
-            book.name = $('#itemModalItemName').val();
-            book.price = Number.parseFloat($('#itemModalItemPriceRub').val());
-            book.brands = extractSelectedItems('itemModalBrandSelect'); //читаем выбранные элементы
-            book.categories = extractSelectedItems('itemModalCategorySelect');
-            book.group = extractSingleSelectedItem('itemModalGroupSelect');//читаем выбранный элемент
+            item.name = $('#itemModalItemName').val();
+            item.price = Number.parseFloat($('#itemModalItemPriceRub').val());
+            item.brands = extractSelectedItems('itemModalBrandSelect'); //читаем выбранные элементы
+            item.categories = extractSelectedItems('itemModalCategorySelect');
+            item.group = extractSingleSelectedItem('itemModalGroupSelect');//читаем выбранный элемент
             //book.publishYear = Number.parseInt($('#bookModalBookYear').val());
-            book.publishYear = $('#itemModalCountry').val();
+            item.country = $('#itemModalCountry').val();
 
-            submitAction(book)
-            console.log(book);
+            submitAction(item)
+            console.log(item);
             $('#itemModal').modal('hide');
         });
     })
 }
 
 const reloadBooks = () => {
-    ajaxGET('/api/book?' + new URLSearchParams(window.location.search), books => {
-        $('#books').empty();
-        if (books.length == 0) {
+    ajaxGET('/api/item?' + new URLSearchParams(window.location.search), items => {
+        $('#items').empty();
+        if (items.length == 0) {
             const message = $('<p id="message" class="text-center">Ничего не найдено</p>')
-            $('#books').append(message)
+            $('#items').append(message)
         }
         else{
-            books.forEach(book => {
+            items.forEach(item => {
                 // $('#searchForm').unbind( "submit" )
-                const img = $('<img src="' + book.image + '" alt="">')
-                const price = $('<h2>' + book.price + ' р</h2>')
-                const name = $('<p>' + book.name + '</p>')
+                const img = $('<img src="' + item.image + '" alt="">')
+                const price = $('<h2>' + item.price + ' р</h2>')
+                const name = $('<p>' + item.name + '</p>')
 
                 const div1 = $('<div class="col-sm-4"></div>')
                 const div2 = $('<div class="product-image-wrapper"></div>')
@@ -480,12 +481,12 @@ const reloadBooks = () => {
                 const div3_2 = $('<div class="choose"></div>')
                 const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa fa-question"></i>Подробнее</a></li></ul>')
                 ul1.click(() => {
-                    window.location.href = '/details?book=' + book.id;
+                    window.location.href = '/details?item=' + item.id;
                 })
                 const ul3 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
                     'fa-trash-o"></i>Удалить товар</a></li></ul>')
                 ul3.click(() => {
-                    ajaxDELETE('/api/book/' + book.id, () => {
+                    ajaxDELETE('/api/item/' + item.id, () => {
                         showMessage('Товар удален', 1500)
                         reloadBooks()
                     });
@@ -493,8 +494,8 @@ const reloadBooks = () => {
                 const ul2 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
                     'fa-wrench"></i>Изменить товар</a></li></ul>')
                 ul2.click(() => {
-                    openItemModal(book, (updatedBook) => {
-                        ajaxPUT('/api/book/' + updatedBook.id, updatedBook, () => {
+                    openItemModal(item, (updatedBook) => {
+                        ajaxPUT('/api/item/' + updatedBook.id, updatedBook, () => {
                             showMessage('Товар изменен', 1000, () => {
                                 reloadBooks();
                             })
@@ -511,11 +512,11 @@ const reloadBooks = () => {
                 div3_1.append(div4)
                 div4.append(img, price, name)
 
-                $('#books').append(div1)
+                $('#items').append(div1)
             })
         }
     })
-    updateFilterItemsList(filterItemsConfig.years)
+    updateFilterItemsList(filterItemsConfig.country)
     updatePriceRange()
 }
 
@@ -539,7 +540,7 @@ $(document).ready(() => {
 
     $('#createBookBtn').click(() => {
         openItemModal(null, (book) => {
-            ajaxPOST('/api/book', book, () => {
+            ajaxPOST('/api/item', book, () => {
                 showMessage("Товар создан", 1000, () => {
                     reloadBooks();
                 })

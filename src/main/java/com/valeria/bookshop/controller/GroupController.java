@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/publisher")
+@RequestMapping("/api/group")
 public class GroupController {
     private final GroupService groupService;
 

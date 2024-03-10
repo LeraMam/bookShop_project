@@ -17,7 +17,7 @@ public class SubtractBookBucketActionProcessor implements BucketActionProcessor 
 
     @Override
     public BucketAction bucketAction() {
-        return BucketAction.SUBTRACT_BOOK;
+        return BucketAction.SUBTRACT_ITEM;
     }
 
     @Override

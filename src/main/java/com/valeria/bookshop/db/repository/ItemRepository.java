@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
-    @Query("select distinct b.publishYear from ItemEntity b")
+    @Query("select distinct b.country from ItemEntity b")
     List<String> findYearsDistinct();
 
     @Query("select min(b.price) from ItemEntity b")

@@ -39,7 +39,7 @@ create table  if not exists item_entity
     image        longtext     null,
     name         varchar(255) null,
     price        double       not null,
-    publish_year varchar(255)          null,
+    country varchar(255)          null,
     group_id bigint       null,
     constraint FKbxob2ku1fl0q5sxp5n1h1dswn
         foreign key (group_id) references group_entity (id)

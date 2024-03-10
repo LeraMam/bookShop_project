@@ -6,25 +6,21 @@
     <script>
         $(document).ready(() => {
             const urlParams = new URLSearchParams(window.location.search);
-
-            ajaxGET('/api/book/' + urlParams.get('book'), book=> {
-                console.log(book);
-                // console.log(book.id);
-                $('#image').attr('src', book.image)
-                $('#name').text(book.name)
-                $('#brands').append('<b>Бренд: </b>', book.brands.map(a=>a.name).join(', '))
-                $('#categories').append('<b>Категории: </b>', book.categories.map(a=>a.name).join(', '))
-                $('#country').append('<b>Страна производства: </b>', book.publishYear)
-                $('#group').append('<b>Целевая группа покупателей: </b>', book.group.name)
-                $('#price').append(book.price+' Р')
+            ajaxGET('/api/item/' + urlParams.get('item'), items=> {
+                $('#image').attr('src', items.image)
+                $('#name').text(items.name)
+                $('#brands').append('<b>Бренд: </b>', items.brands.map(a=>a.name).join(', '))
+                $('#categories').append('<b>Категории: </b>', items.categories.map(a=>a.name).join(', '))
+                $('#country').append('<b>Страна производства: </b>', items.country)
+                $('#group').append('<b>Целевая группа покупателей: </b>', items.group.name)
+                $('#price').append(items.price+' Р')
 
                 $('#AddToCart').click(() => {
-                    console.log('ID:', book.id);
-                    ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: book.id, action: 'APPEND_BOOK'},
+                    console.log('ID:', items.id);
+                    ajaxPOSTWithoutResponse('/api/bucket/action', {bookId: items.id, action: 'APPEND_ITEM'},
                         () => showMessage("Товар добавлен в корзину", 1000))
                 })
             })
-            console.log()
         })
     </script>
 </head>

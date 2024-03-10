@@ -10,7 +10,7 @@ public class ItemDTO {
     private String name;
     private String image;
     private double price;
-    private String publishYear;
+    private String country;
     private List<BrandDTO> brands;
     private GroupDTO group;
     private List<CategoryDTO> categories;
