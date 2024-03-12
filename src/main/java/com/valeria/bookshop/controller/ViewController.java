@@ -165,4 +165,25 @@ public class ViewController {
         modelAndView.setViewName("ofetra");
         return modelAndView;
     }
+
+    @GetMapping("/analyticsCategories")
+    public ModelAndView analyticsCatView() {
+        String name = "Диаграммы продаж";
+        String userRole = String.valueOf(UserRole.ROLE_ADMIN);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("pageTitle", name);
+        modelAndView.addObject("uRole", userRole);
+        modelAndView.setViewName("category-analytics");
+        return modelAndView;
+    }
+    @GetMapping("/general")
+    public ModelAndView analyticsMapView() {
+        String name = "Общие данные";
+        String userRole = String.valueOf(UserRole.ROLE_ADMIN);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("pageTitle", name);
+        modelAndView.addObject("uRole", userRole);
+        modelAndView.setViewName("general");
+        return modelAndView;
+    }
 }

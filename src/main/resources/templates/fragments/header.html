@@ -87,6 +87,20 @@
                                         <li><a href="/orders?state=IN_PROCESSING">Заказы в обработке</a></li>
                                     </ul>
                                 </li>
+                                <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Пользователи<i
+                                        class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/users">Клиенты</a></li>
+                                        <li><a href="/admins">Администраторы</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a>Аналитика<i
+                                        class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="/general">Общие данные</a></li>
+                                        <li><a href="/analyticsCategories">Диаграммы продаж</a></li>
+                                    </ul>
+                                </li>
                                <!-- <li sec:authorize="!hasRole('ROLE_ADMIN')"><a href="/">Главная</a></li>-->
                                 <li sec:authorize="!hasRole('ROLE_ADMIN')"><a href="/catalog">Каталог</a></li>
                                <!-- <li class="dropdown" sec:authorize="!hasRole('ROLE_ADMIN')"><a href="#">Магазин<i
@@ -94,13 +108,6 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="/catalog">Каталог</a></li>
                                         <li><a href="/contact">Контакты</a></li>
-                                    </ul>
-                                </li>-->
-                                <!--<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#">Пользователи<i
-                                        class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="/users">Клиенты</a></li>
-                                        <li><a href="/admins">Администраторы</a></li>
                                     </ul>
                                 </li>-->
                             </ul>

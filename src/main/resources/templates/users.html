@@ -31,19 +31,19 @@
 
 
 <!-- Book Modal -->
-<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bookModalLabel">Добавить клиента</h5>
+                <h5 class="modal-title" id="userModalLabel">Добавить клиента</h5>
             </div>
 
             <form id="UserForm">
                 <div class="modal-body">
 
-                    <label>Логин</label>
-                    <input class="form-control" id="UserLogin" type="text" placeholder="Имя пользователя"
-                           required value="user"/><br>
+                    <label>Email</label>
+                    <input class="form-control" id="UserLogin" type="email" placeholder="example@gmail.com"
+                           required value=""/><br>
 
                     <label>Пароль</label>
                     <input class="form-control" id="UserPassword" type="password" placeholder="Пароль"
@@ -58,6 +58,7 @@
         </div>
     </div>
 </div>
+<div style="height: 50px"></div>
 <div th:replace="~{/fragments/footer :: footer}"></div>
 </body>
 </html>

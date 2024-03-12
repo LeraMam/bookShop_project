@@ -32,7 +32,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final FirebaseAuth firebaseAuth;
-    private BucketRepository bucketRepository;
+    private final BucketRepository bucketRepository;
 
     public List<UserDTO> getAllUsers() {
         return userMapper.mapToDTOList(userRepository.findAll());
@@ -61,8 +61,8 @@ public class UserService {
                 .orElseThrow(() -> new ApiException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
     }
 
-    public List<UserEntity> getAllUsersByRole(UserRole role) {
-        return userRepository.findAllByRole(role);
+    public List<UserDTO> getAllUsersByRole(UserRole role) {
+        return userMapper.mapToDTOList(userRepository.findAllByRole(role));
     }
 
 

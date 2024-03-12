@@ -98,15 +98,16 @@
         const loadOrders = () => ajaxGET('/api/bucket/all', (orders => {
             $('#orderList').empty()
             orders.forEach(order => {
-                /*const stateForForm = $('<h4>Состояние заказа: </h4>');
-                stateForForm.text(order.state === 'SUBMITTED' ? 'Начать обработку' :
-                    order.state === 'IN_PROCESSING' ? 'Заказ доставлен' : '')*/
+                /*const stateForForm = $('<h4>Состояние заказа: </h4>');*/
+                const stateForForm = order.state === 'SUBMITTED' ? 'Ожидает подтверждения' :
+                    order.state === 'IN_PROCESSING' ? 'На пути в пункт назначения' : 'Заказ доставлен'
+                console.log(stateForForm)
 
                 const orderDiv = $(`
                         <div class="category-tab shop-details-tab" style="border: 1px solid #a2a2a2; padding: 10px"><!--category-tab-->
                             <div class="col-sm-12">
                                 <h4>Номер заказа: ${order.orderId}</h4>
-                                <h4>Состояние заказа: ${order.state}</h4><br>
+                                <h4>Состояние заказа: ${stateForForm}</h4><br>
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#${order.orderId}_books" data-toggle="tab">Книги</a></li>
                                     <li><a href="#${order.orderId}_address" data-toggle="tab">Адрес</a></li>

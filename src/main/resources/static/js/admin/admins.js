@@ -1,25 +1,27 @@
-/////////////////////////////////////////////////////////////////////////////////////////USERS
+/////////////////////////////////////////////////////////////////////////////////////////АДМИНЫ 
 
 $(document).ready(() => {
 
     $('#createUserBtn').click(() => {
-        $('#bookModal').modal('show')
+        $('#userModal').modal('show')
     })
 
-    $('#UserForm').submit((event) => {
+    $('#AdminForm').submit((event) => {
         event.preventDefault();
         const body = {
             email: $('#UserLogin').val(),
             password: $('#UserPassword').val(),
-            role: 'ROLE_USER'
+            role: 'ROLE_ADMIN'
         }
-        // console.log(body)
+        console.log(body)
 
         ajaxPOST('/api/users/registration', body, () => {
-            showMessage("Пользователь добавлен", 1000, ()=> {
+            showMessage("Администратор добавлен", 1000, ()=> {
                 reloadUsers();
+                // updateList(filterItemsConfig.years)
             })
         })
+        $('#userModal').modal('hide');
     })
 
     const reloadUsers = ()=> {
@@ -29,23 +31,25 @@ $(document).ready(() => {
             $('#users').empty();
 
             users.forEach(user => {
-                // const img = $('<img src="../images/users/user.jpg" alt="">')
+                // const img = $('<img src="../h/images/users/user.jpg" alt="">')
                 const img = ''
                 const price = $('<h2>' + user.email + ' </h2>')
                 const name = $('<p>' + user.role + '</p>')
-                if (user.role === 'ROLE_USER'){
+                if (user.role === 'ROLE_ADMIN'){
                     const div1 = $('<div class="col-sm-4"></div>')
                     const div2 = $('<div class="product-image-wrapper"></div>')
                     const div3_1 = $('<div class="single-products">')
 
                     const div3_2 = $('<div class="choose"></div>')
-                const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
+                    const ul1 = $('<ul class="nav nav-pills nav-justified"><li><a><i class="fa ' +
                     'fa-trash-o"></i>Удалить пользователя</a></li></ul>')
-                ul1.click(() => {
-                    ajaxDELETE('/api/users/' + user.id, ()=> {
-                        showMessage('Пользователь удален', 1500)
-                        reloadUsers()
-                    });
+                    ul1.click(() => {
+
+                        ajaxDELETE('/api/users/' + user.id, ()=> {
+                            showMessage('Пользователь удален', 1500)
+                            reloadUsers()
+                        });
+
                 })
                 div3_2.append(ul1)
 
@@ -59,6 +63,8 @@ $(document).ready(() => {
 
                 $('#users').append(div1)
                 }
+                
+
             })
         })
     }
@@ -68,20 +74,6 @@ $(document).ready(() => {
     })
 })
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Books
-
-// const extractSelectedItems = (selectId) => {
-//     const selected = $('#' + selectId).val()
-//     return selected ? selected : [];
-// }
-
-// const extractSingleSelectedItem = (selectId) => {
-//     const selected = $('#' + selectId).val()
-//     //возвращает пустую строку если ничего не выбрано, поэтому ставим null а не пустую строку
-//     return selected ? selected : null;
-// }
 
 
 

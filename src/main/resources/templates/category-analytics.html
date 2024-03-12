@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <style>
+        .graph {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+    <script>
+        function loadCountAnalysis(){
+            var transformedData = [];
+            ajaxGET('/api/bucket/analyticsCategories', (items => {
+                var graphObject = {};
+                items.forEach(item => {
+                    item.items.forEach(element => {
+                        if (graphObject[element.name]) {
+                            graphObject[element.name] += element.itemCount;
+                        } else {
+                            graphObject[element.name] = element.itemCount;
+                        }
+                    });
+                });
+                transformedData = Object.entries(graphObject).map(function ([name, count]) {
+                    return [name, count];
+                });
+                console.log(transformedData);
+                var chart = anychart.pie();
+                chart.data(transformedData);
+                chart.title("Соотношение купленных товаров в количестве");
+                chart.container("count");
+                chart.draw();
+            }));
+        }
+        function loadPriceAnalysis(){
+            var transformedData = [];
+            ajaxGET('/api/bucket/analyticsCategories', (items => {
+                var graphObject = {};
+                console.log(items);
+                items.forEach(item => {
+                    item.items.forEach(element => {
+                        if (graphObject[element.name]) {
+                            graphObject[element.name] += element.price;
+                        } else {
+                            graphObject[element.name] = element.price;
+                        }
+                    });
+                });
+                transformedData = Object.entries(graphObject).map(function ([name, count]) {
+                    return [name, count];
+                });
+                var chart = anychart.pie();
+                chart.data(transformedData);
+                chart.title("Соотношение купленных товаров в цене");
+                chart.container("price");
+                chart.draw();
+            }));
+        }
+
+        $(document).ready(() => {
+            loadCountAnalysis();
+            loadPriceAnalysis();
+            }
+        );
+    </script>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 ">
+            <div id="count" class="graph"></div>
+        </div>
+        <div class="col-sm-6 padding-right">
+            <div id="price" class="graph"></div>
+        </div>
+    </div>
+</div>
+<div style="height: 50px">
+
+</div>
+
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

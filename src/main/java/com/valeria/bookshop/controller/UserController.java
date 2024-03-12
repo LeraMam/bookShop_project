@@ -1,6 +1,7 @@
 package com.valeria.bookshop.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.valeria.bookshop.db.entity.UserRole;
 import com.valeria.bookshop.dto.UserDTO;
 import com.valeria.bookshop.request.CreateUserRequest;
 import com.valeria.bookshop.service.UserService;

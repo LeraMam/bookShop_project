@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <style>
+        #graph {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+    <script>
+        function loadRegionAnalysis(){
+            ajaxGET('/api/bucket/analyticsCategories', (items => {
+                var data = [];
+                items.forEach(item => {
+                    if(!(item.state === 'OPEN')){
+                        var regionData = {
+                            region: item.delivery.region,
+                            totalPrice: 0,
+                            totalItemCount: 0
+                        };
+                        item.items.forEach(element => {
+                            regionData.totalPrice += element.price;
+                            regionData.totalItemCount += element.itemCount;
+                        });
+                        data.push(regionData);
+                    }
+                });
+                var chart = anychart.column();
+                chart.data(data);
+                chart.title("Покупательская способность по областям(в цене и количестве)");
+                chart.yScale().ticks().interval(10);
+                chart.yScale().minorTicks().interval(2);
+                chart.yAxis().minorTicks().enabled(true);
+                chart.container("graph");
+                chart.draw();
+            }));
+        }
+
+        function averageCheck(){
+            let result = 0;
+            let averageNumber = 0;
+            let count = 0;
+            ajaxGET('/api/bucket/analyticsCategories', (items => {
+                items.forEach(item => {
+                    if(!(item.state === 'OPEN')){count++;
+                        item.items.forEach(element => {
+                            averageNumber += element.price;
+                        });
+                    }
+                });
+                result = averageNumber/count;
+                $('#sum').append('<b>Общая сумма оформленных заказов: </b>',averageNumber, " BYN");
+                $('#number').append('<b>Общее число оформленных заказов: </b>',count);
+                $('#average').append('<b>Средний чек: </b>', result, " BYN");
+            }));
+        }
+
+        function topSell() {
+            let productCounts = {};
+            ajaxGET('/api/bucket/analyticsCategories', (items) => {
+                items.forEach((item) => {
+                    if(!(item.state === 'OPEN')){
+                        item.items.forEach((element) => {
+                            if (productCounts.hasOwnProperty(element.name)) {
+                                productCounts[element.name] += element.itemCount;
+                            } else {
+                                productCounts[element.name] = element.itemCount;
+                            }
+                        });
+                    }
+                });
+                let topProduct;
+                let maxCount = 0;
+                for (let product in productCounts) {
+                    if (productCounts[product] > maxCount) {
+                        maxCount = productCounts[product];
+                        topProduct = product;
+                    }
+                }
+                $('#best').append('<b>Топ продаж: </b>', topProduct, ", штук заказано: ", maxCount);
+            });
+        }
+
+        function itemsNumber() {
+            let count = 0;
+            ajaxGET('/api/bucket/analyticsCategories', (items => {
+                items.forEach(item => {
+                    if(!(item.state === 'OPEN')){
+                        item.items.forEach(element => {
+                        count += element.itemCount;
+                    })}
+                });
+                $('#sold').append('<b>Всего товара продано: </b>',count, " шт.");
+            }));
+        }
+
+        function orderByState(){
+            let countDone = 0;
+            let countOpen = 0;
+            let countWait = 0;
+            ajaxGET('/api/bucket/analyticsCategories', (items => {
+                items.forEach(item => {
+                    if(!(item.state === 'OPEN')){
+                        if(item.state === 'SUBMITTED') countWait++;
+                        if(item.state === 'RESOLVED') countDone++;
+                        if(item.state === 'IN_PROCESSING') countOpen++;
+                    }
+                });
+                $('#wait').append('<b>Количество ожидающих заказов: </b>',countWait);
+                $('#open').append('<b>Количество принятых заказов: </b>',countOpen);
+                $('#done').append('<b>Количество доставленных заказов: </b>',countDone);
+            }));
+        }
+
+        $(document).ready(() => {
+            loadRegionAnalysis();
+            averageCheck();
+            topSell();
+            itemsNumber();
+            orderByState();
+            }
+        );
+    </script>
+</head>
+<body>
+<div th:replace="~{/fragments/header :: header}"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 ">
+            <div id="graph"></div>
+        </div>
+        <div class="col-sm-6 padding-right">
+            <div class="product-details">
+                <div class="product-information">
+                    <h2 class="title text-center" style="color:#800000">Общая информация о продажах</h2>
+                    <p id="average"></p>
+                    <p id="best"></p>
+                    <p id="sold"></p><br>
+                    <p id="number"></p>
+                    <p id="sum"></p><br>
+                    <p id="wait"></p>
+                    <p id="open"></p>
+                    <p id="done"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="height: 50px">
+</div>
+
+<div th:replace="~{/fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -52,6 +52,10 @@ public class BucketService {
         return bucketMapper.mapToDTOList(bucketRepository.findAllByUserEntity(userService.getCurrentAuthorizedUserEntity()));
     }
 
+    public List<BucketDTO> getBucketsForAllUsers() {
+        return bucketMapper.mapToDTOList(bucketRepository.findAll());
+    }
+
     public void changeBucketState(Long bucketId, BucketState bucketState) {
         BucketEntity bucketEntity = bucketRepository.findById(bucketId)
                 .orElseThrow(() -> new NotFoundException("Корзина не найдена"));
@@ -73,6 +77,15 @@ public class BucketService {
                     newBucket.setUserEntity(user);
                     return bucketRepository.save(newBucket);
                 } );
+    }
+
+    public List<BucketDTO> getAllBucketsForAnalyticsUser() {
+        List<BucketDTO> list = bucketMapper.mapToDTOList(bucketRepository.findAll());
+        List<Long> delete = new ArrayList<>();
+        for(BucketDTO element : list){
+
+        }
+        return list;
     }
 
     public void deleteOrder(Long orderId) {
