@@ -30,7 +30,7 @@ public class MetaController {
     }
 
     @GetMapping("/country")
-    Collection<String> getYears() {return itemRepository.findYearsDistinct();}
+    Collection<String> getCountries() {return itemRepository.findYearsDistinct();}
 
     @GetMapping("/price")
     Map<String, Long> getPriceRange() {

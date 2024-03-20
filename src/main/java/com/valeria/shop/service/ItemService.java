@@ -50,13 +50,13 @@ public class ItemService {
     public void deleteItem(Long bookId) {
         boolean exists = itemRepository.existsById(bookId);
         if (!exists) {
-            throw new NotFoundException("Товар с заданным id " + bookId + "не существует");
+            throw new NotFoundException("Товар с заданным id " + bookId + " не существует");
         }
         itemRepository.deleteById(bookId);
     }
 
     public ItemEntity findEntityById(Long id) {
         return itemRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Товар с заданным id " + id + "не существует"));
+                .orElseThrow(() -> new NotFoundException("Товар с заданным id " + id + " не существует"));
     }
 }

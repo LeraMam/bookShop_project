@@ -40,7 +40,7 @@ public class BucketController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("")
     public BucketDTO getCurrentBucket() {
-        System.out.println(bucketService.getCurrentBucket());
+        //System.out.println(bucketService.getCurrentBucket());
         return bucketService.getCurrentBucket();
     }
 
@@ -50,18 +50,18 @@ public class BucketController {
         return bucketService.getBucketsForCurrentUser();
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    /*@PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/unique")
     public List<BucketDTO> getAllBucketsForAnalyticsUser() {
         return bucketService.getAllBucketsForAnalyticsUser();
-    }
+    }*/
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/analyticsCategories")
     public List<BucketDTO> getAllBucketsForAnalytics() {
-        List<BucketDTO> backets = bucketService.getBucketsForAllUsers();
-        System.out.println(backets);
-        return backets;
+        /*List<BucketDTO> backets = bucketService.getBucketsForAllUsers();
+        System.out.println(backets);*/
+        return bucketService.getBucketsForAllUsers();
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

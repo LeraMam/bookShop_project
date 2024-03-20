@@ -14,17 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class ViewController {
     private final UserService userService;
 
-    @GetMapping("/")
-    public ModelAndView mainView() {
-        String name = "Главная";
-        String userRole = String.valueOf(UserRole.ROLE_USER);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("pageTitle", name);
-        modelAndView.addObject("uRole", userRole);
-        modelAndView.setViewName("main(not using)");
-        return modelAndView;
-    }
-
     @GetMapping("/account")
     public ModelAndView accountView() {
         String name = "Пользователь";
