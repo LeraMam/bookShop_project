@@ -102,31 +102,6 @@ public class UserService {
             log.warn(e.getMessage());
         }
     }
-/*
-    public void deleteUser(Long userId) {
-        boolean exists = userRepository.existsById(userId);
-        if (!exists){
-            throw new IllegalStateException("user with id " + userId + "does not exist");
-        }
-        userRepository.deleteById(userId);
-    }
-    @Transactional
-    public void updateUser(Long userId, String login, String role) {
-        UserEntity user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("user with id " + userId + " does not exist")
-        );
-        if(login != null && !login.isEmpty() && !Objects.equals(user.getLogin(), login)) {
-            UserEntity findByLoginUser = userRepository.findUserByLogin(login);
-            //System.out.println(findByLoginUser);
-            if(findByLoginUser != null){
-                throw new IllegalStateException("this login is using, you can't use it");
-            }
-            user.setLogin(login);
-        }
-        if(role != null && !role.isEmpty() && !Objects.equals(user.getROLE(), role)) {
-            user.setROLE(UserRole.valueOf(role));
-        }
-    }*/
 }
 
 

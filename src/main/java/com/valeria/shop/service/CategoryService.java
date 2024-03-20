@@ -36,7 +36,7 @@ public class CategoryService {
             }
         });
         if (!notExistingIds.isEmpty()) {
-            throw new NotFoundException("Категории " + notExistingIds + "не найдены");
+            throw new NotFoundException("Категории " + notExistingIds + " не найдены");
         }
         return categoryEntities;
     }

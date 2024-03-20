@@ -40,7 +40,7 @@ public class BrandService {
             }
         });
         if (!notExistingIds.isEmpty()) {
-            throw new NotFoundException("Бренды " + notExistingIds + "не найдены");
+            throw new NotFoundException("Бренды " + notExistingIds + " не найдены");
         }
         return brandEntities;
     }
