@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <div th:insert="~{fragments/headLinks :: head_fragment}"></div>
     <script>
         const createBookItemStr = (items) => {
             return `
@@ -134,7 +134,7 @@
     </script>
 </head>
 <body>
-<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <section id="cart_items">
     <div class="container">
@@ -147,6 +147,6 @@
     </div>
 </section>
 
-<div th:replace="~{/fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

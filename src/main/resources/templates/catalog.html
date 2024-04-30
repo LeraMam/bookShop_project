@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <meta charset="UTF-8">
-    <div th:insert="~{/fragments/headLinks :: head_fragment}"></div>
+    <div th:insert="~{fragments/headLinks :: head_fragment}"></div>
     <script src="js/admin/catalog.js" sec:authorize="hasAuthority('ROLE_ADMIN')"></script>
     <script src="js/user/catalog.js" sec:authorize="!hasAuthority('ROLE_ADMIN')"></script>
     <style>
@@ -53,7 +53,7 @@
     <title></title>
 </head>
 <body>
-<div th:replace="~{/fragments/header :: header}"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 <section>
     <div class="container">
         <div class="row">
@@ -73,7 +73,7 @@
 
                     <div class="brands_products">
                         <h2>Бренды
-                            <i class="fa fa-plus-circle" id="createAuthorBtn" style="color: #7C976C"
+                            <i class="fa fa-plus-circle" id="createBrandBtn" style="color: #7C976C"
                                sec:authorize="hasRole('ROLE_ADMIN')"></i>
                         </h2>
                         <div class="brands-name">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="brands_products">
                         <h2>Группы покупателей
-                            <i class="fa fa-plus-circle" id="createPublisherBtn" style="color: #7C976C"
+                            <i class="fa fa-plus-circle" id="createGroupBtn" style="color: #7C976C"
                                sec:authorize="hasRole('ROLE_ADMIN')"></i>
                         </h2>
                         <div class="brands-name">
@@ -224,6 +224,6 @@
         </div>
     </div>
 </div>
-<div th:replace="~{/fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
